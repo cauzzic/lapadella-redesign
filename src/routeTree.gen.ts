@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as GalerieRouteImport } from './routes/galerie'
+import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as NapojeRouteImport } from './routes/napoje'
 
@@ -22,6 +23,11 @@ const IndexRoute = IndexRouteImport.update({
 const GalerieRoute = GalerieRouteImport.update({
   id: '/galerie',
   path: '/galerie',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KontaktRoute = KontaktRouteImport.update({
+  id: '/kontakt',
+  path: '/kontakt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MenuRoute = MenuRouteImport.update({
@@ -38,12 +44,14 @@ const NapojeRoute = NapojeRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/galerie': typeof GalerieRoute
+  '/kontakt': typeof KontaktRoute
   '/menu': typeof MenuRoute
   '/napoje': typeof NapojeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/galerie': typeof GalerieRoute
+  '/kontakt': typeof KontaktRoute
   '/menu': typeof MenuRoute
   '/napoje': typeof NapojeRoute
 }
@@ -51,20 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/galerie': typeof GalerieRoute
+  '/kontakt': typeof KontaktRoute
   '/menu': typeof MenuRoute
   '/napoje': typeof NapojeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/galerie' | '/menu' | '/napoje'
+  fullPaths: '/' | '/galerie' | '/kontakt' | '/menu' | '/napoje'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/galerie' | '/menu' | '/napoje'
-  id: '__root__' | '/' | '/galerie' | '/menu' | '/napoje'
+  to: '/' | '/galerie' | '/kontakt' | '/menu' | '/napoje'
+  id: '__root__' | '/' | '/galerie' | '/kontakt' | '/menu' | '/napoje'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   GalerieRoute: typeof GalerieRoute
+  KontaktRoute: typeof KontaktRoute
   MenuRoute: typeof MenuRoute
   NapojeRoute: typeof NapojeRoute
 }
@@ -83,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/galerie'
       fullPath: '/galerie'
       preLoaderRoute: typeof GalerieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kontakt': {
+      id: '/kontakt'
+      path: '/kontakt'
+      fullPath: '/kontakt'
+      preLoaderRoute: typeof KontaktRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/menu': {
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   GalerieRoute: GalerieRoute,
+  KontaktRoute: KontaktRoute,
   MenuRoute: MenuRoute,
   NapojeRoute: NapojeRoute,
 }
