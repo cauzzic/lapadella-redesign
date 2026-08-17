@@ -6,6 +6,7 @@ import { CONTACT } from "@/data/menu";
 const links = [
   { to: "/", label: "Domů" },
   { to: "/menu", label: "Menu" },
+  { to: "/tydenni-menu", label: "Týdenní menu" },
   { to: "/napoje", label: "Nápoje" },
   { to: "/o-nas", label: "O nás" },
   { to: "/galerie", label: "Galerie" },

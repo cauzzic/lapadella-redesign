@@ -38,9 +38,12 @@ export function SiteFooter() {
               {CONTACT.email}
             </a>
           </p>
-          <div className="flex gap-6 pt-2 text-[0.7rem] font-semibold tracking-[0.18em] uppercase">
+          <div className="flex flex-wrap gap-x-6 gap-y-2 pt-2 text-[0.7rem] font-semibold tracking-[0.18em] uppercase">
             <Link to="/menu" className="hover:text-clay">
               Menu
+            </Link>
+            <Link to="/tydenni-menu" className="hover:text-clay">
+              Týdenní menu
             </Link>
             <Link to="/galerie" className="hover:text-clay">
               Galerie
