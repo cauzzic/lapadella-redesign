@@ -26,10 +26,10 @@ export const Route = createFileRoute("/")({
 });
 
 const categories = [
-  { title: "Předkrmy", img: IMG.food1, to: "/menu", hash: "predkrmy" },
-  { title: "Hlavní chody", img: IMG.food4, to: "/menu", hash: "pizza" },
-  { title: "Dezerty", img: IMG.oblique3, to: "/menu", hash: "dezerty" },
-  { title: "Nápoje", img: IMG.oblique4, to: "/napoje", hash: undefined },
+  { title: "Předkrmy", img: IMG.food1, href: "/menu#predkrmy" },
+  { title: "Hlavní chody", img: IMG.food4, href: "/menu#pizza" },
+  { title: "Dezerty", img: IMG.oblique3, href: "/menu#dezerty" },
+  { title: "Nápoje", img: IMG.oblique4, href: "/napoje" },
 ] as const;
 
 function Index() {
