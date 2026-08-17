@@ -10,33 +10,84 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GalerieRouteImport } from './routes/galerie'
+import { Route as KontaktRouteImport } from './routes/kontakt'
+import { Route as MenuRouteImport } from './routes/menu'
+import { Route as NapojeRouteImport } from './routes/napoje'
+import { Route as ONasRouteImport } from './routes/o-nas'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GalerieRoute = GalerieRouteImport.update({
+  id: '/galerie',
+  path: '/galerie',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KontaktRoute = KontaktRouteImport.update({
+  id: '/kontakt',
+  path: '/kontakt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MenuRoute = MenuRouteImport.update({
+  id: '/menu',
+  path: '/menu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NapojeRoute = NapojeRouteImport.update({
+  id: '/napoje',
+  path: '/napoje',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ONasRoute = ONasRouteImport.update({
+  id: '/o-nas',
+  path: '/o-nas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/galerie': typeof GalerieRoute
+  '/kontakt': typeof KontaktRoute
+  '/menu': typeof MenuRoute
+  '/napoje': typeof NapojeRoute
+  '/o-nas': typeof ONasRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/galerie': typeof GalerieRoute
+  '/kontakt': typeof KontaktRoute
+  '/menu': typeof MenuRoute
+  '/napoje': typeof NapojeRoute
+  '/o-nas': typeof ONasRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/galerie': typeof GalerieRoute
+  '/kontakt': typeof KontaktRoute
+  '/menu': typeof MenuRoute
+  '/napoje': typeof NapojeRoute
+  '/o-nas': typeof ONasRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/galerie' | '/kontakt' | '/menu' | '/napoje' | '/o-nas'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/galerie' | '/kontakt' | '/menu' | '/napoje' | '/o-nas'
+  id:
+    '__root__' | '/' | '/galerie' | '/kontakt' | '/menu' | '/napoje' | '/o-nas'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GalerieRoute: typeof GalerieRoute
+  KontaktRoute: typeof KontaktRoute
+  MenuRoute: typeof MenuRoute
+  NapojeRoute: typeof NapojeRoute
+  ONasRoute: typeof ONasRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +99,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/galerie': {
+      id: '/galerie'
+      path: '/galerie'
+      fullPath: '/galerie'
+      preLoaderRoute: typeof GalerieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kontakt': {
+      id: '/kontakt'
+      path: '/kontakt'
+      fullPath: '/kontakt'
+      preLoaderRoute: typeof KontaktRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/menu': {
+      id: '/menu'
+      path: '/menu'
+      fullPath: '/menu'
+      preLoaderRoute: typeof MenuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/napoje': {
+      id: '/napoje'
+      path: '/napoje'
+      fullPath: '/napoje'
+      preLoaderRoute: typeof NapojeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/o-nas': {
+      id: '/o-nas'
+      path: '/o-nas'
+      fullPath: '/o-nas'
+      preLoaderRoute: typeof ONasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GalerieRoute: GalerieRoute,
+  KontaktRoute: KontaktRoute,
+  MenuRoute: MenuRoute,
+  NapojeRoute: NapojeRoute,
+  ONasRoute: ONasRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,24 +1,209 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Phone, ArrowRight } from "lucide-react";
+import { CONTACT, HOURS, IMG, GALLERY } from "@/data/menu";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "La Padella – italská restaurace a pizzerie, Valašské Meziříčí" },
+      {
+        name: "description",
+        content:
+          "Pravá neapolská pizza, domácí pasta a italská vína ve Valašském Meziříčí. Rodinné recepty z Neapole, italští kuchaři. Rezervace: +420 723 232 376.",
+      },
+      { property: "og:title", content: "La Padella – italská restaurace & pizzerie" },
+      {
+        property: "og:description",
+        content: "Neapolská pizza, domácí těstoviny a italská vína v srdci Valašského Meziříčí.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: IMG.chef },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: IMG.chef },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
+const categories = [
+  { title: "Předkrmy", img: IMG.food1, href: "/menu#predkrmy" },
+  { title: "Hlavní chody", img: IMG.food4, href: "/menu#pizza" },
+  { title: "Dezerty", img: IMG.oblique3, href: "/menu#dezerty" },
+  { title: "Nápoje", img: IMG.oblique4, href: "/napoje" },
+] as const;
+
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <>
+      {/* HERO */}
+      <section className="relative flex min-h-screen items-center overflow-hidden">
+        <img
+          src={IMG.chef}
+          alt="Italský kuchař připravuje neapolskou pizzu v La Padella"
+          className="absolute inset-0 size-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/50 to-ink/90" />
+        <div className="relative mx-auto w-full max-w-7xl px-5 pt-28 pb-16 md:px-8">
+          <p className="eyebrow text-clay">Valašské Meziříčí · Cucina Napoletana</p>
+          <h1 className="mt-5 max-w-3xl text-5xl leading-[1.05] text-cream sm:text-6xl md:text-8xl">
+            Kousek Neapole, <span className="text-clay">jen pár kroků od vás</span>
+          </h1>
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-cream/80 md:text-lg">
+            Dovolte nám vzít vás přímo do srdce Itálie – do míst, kde se vůně čerstvé pizzy a
+            výjimečných pokrmů snoubí s tradicemi neapolské kuchyně.
+          </p>
+          <div className="mt-10 flex flex-wrap gap-4">
+            <a href={CONTACT.phoneHref} className="btn-primary">
+              <Phone className="size-4" /> Rezervovat stůl
+            </a>
+            <Link to="/menu" className="btn-ghost text-cream">
+              Naše menu <ArrowRight className="size-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* WELCOME */}
+      <section className="section-pad">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 md:px-8 lg:grid-cols-2">
+          <div className="relative">
+            <img
+              src={IMG.kitchen}
+              alt="Interiér a kuchyně restaurace La Padella"
+              loading="lazy"
+              className="w-full rounded-sm object-cover shadow-[var(--shadow-soft)]"
+            />
+            <div className="absolute -bottom-8 -right-4 hidden bg-sage-deep px-8 py-6 text-cream md:block">
+              <p className="font-display text-4xl">2024</p>
+              <p className="text-[0.6rem] font-semibold tracking-[0.25em] uppercase">
+                Rodinná tradice
+              </p>
+            </div>
+          </div>
+          <div>
+            <p className="eyebrow">Vítejte v</p>
+            <h2 className="mt-3 text-4xl md:text-5xl">restauraci La Padella</h2>
+            <p className="mt-6 font-display text-2xl leading-snug text-sage-deep md:text-[1.75rem]">
+              „Přesně takovou atmosféru jsme pro vás vytvořili tady u nás, v La Padelle.“
+            </p>
+            <p className="mt-6 leading-relaxed text-muted-foreground">
+              Jídla pro vás připravujeme podle našich originálních rodinných receptů, které pocházejí
+              přímo z Neapole. Přijďte si odpočinout a vychutnat Itálii tak, jak ji milujeme a známe
+              my.
+            </p>
+            <Link to="/o-nas" className="btn-ghost mt-8 text-foreground">
+              Více o nás <ArrowRight className="size-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* CATEGORIES */}
+      <section className="bg-muted section-pad">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <div className="max-w-2xl">
+            <p className="eyebrow">Naše</p>
+            <h2 className="mt-3 text-4xl md:text-5xl">Menu</h2>
+            <p className="mt-6 leading-relaxed text-muted-foreground">
+              Čerstvé suroviny, autentické těsto a voňavé bylinky jsou tou nejlepší kombinací, která
+              vám připomene atmosféru Itálie a neodolatelné vůně tamních trattorií.
+            </p>
+          </div>
+
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {categories.map((c) => (
+              <a
+                key={c.title}
+                href={c.href}
+                className="group relative block h-72 overflow-hidden rounded-sm"
+              >
+                <img
+                  src={c.img}
+                  alt={c.title}
+                  loading="lazy"
+                  className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/90 to-ink/10" />
+                <span className="absolute inset-x-0 bottom-0 flex items-center justify-between p-5 text-cream">
+                  <span className="font-display text-2xl">{c.title}</span>
+                  <ArrowRight className="size-5 text-clay transition-transform group-hover:translate-x-1" />
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* STORY / HARMONIE */}
+      <section className="section-pad">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 md:px-8 lg:grid-cols-2">
+          <div className="order-2 lg:order-1">
+            <h2 className="text-4xl md:text-5xl">Harmonie chutí</h2>
+            <p className="mt-6 leading-relaxed text-muted-foreground">
+              Představte si tu harmonii chutí – čerstvá bazalka, šťavnatá rajčata San Marzano, vláčná
+              buvolí mozzarella a k tomu delikátní mořské plody nebo křehké maso, vše připravené s
+              láskou a mistrovstvím italských kuchařů.
+            </p>
+            <p className="mt-6 font-display text-3xl text-primary">
+              Tak co, máme pro Vás připravit stůl?
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link to="/menu" className="btn-primary">
+                Podívat se na menu
+              </Link>
+              <a href={CONTACT.phoneHref} className="btn-ghost text-foreground">
+                {CONTACT.phone}
+              </a>
+            </div>
+          </div>
+          <div className="order-1 grid grid-cols-2 gap-4 lg:order-2">
+            {GALLERY.slice(0, 4).map((src, i) => (
+              <img
+                key={src}
+                src={src}
+                alt={`Speciality La Padella ${i + 1}`}
+                loading="lazy"
+                className={`h-48 w-full rounded-sm object-cover shadow-[var(--shadow-card)] md:h-60 ${
+                  i % 3 === 0 ? "translate-y-4" : ""
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* HOURS + ADDRESS */}
+      <section className="relative overflow-hidden">
+        <img src={IMG.aboutBg} alt="" aria-hidden className="absolute inset-0 size-full object-cover" />
+        <div className="absolute inset-0 bg-ink/85" />
+        <div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-20 text-cream md:grid-cols-2 md:px-8 md:py-28">
+          <div>
+            <p className="eyebrow text-clay">Kde nás najdete</p>
+            <h2 className="mt-3 text-4xl md:text-5xl">Adresa</h2>
+            <p className="mt-6 text-lg text-cream/80">
+              LA PADELLA Italská restaurace &amp; pizzerie
+              <br />
+              {CONTACT.street}
+              <br />
+              {CONTACT.city}
+            </p>
+            <a href={CONTACT.mapUrl} target="_blank" rel="noreferrer" className="btn-ghost mt-8 text-cream">
+              Zobrazit na mapě
+            </a>
+          </div>
+          <div>
+            <p className="eyebrow text-clay">Otevírací doba</p>
+            <ul className="mt-6 space-y-3">
+              {HOURS.map((h) => (
+                <li key={h.day} className="flex justify-between border-b border-cream/15 pb-3">
+                  <span className="text-cream/70">{h.day}</span>
+                  <span className="font-semibold">{h.time}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
