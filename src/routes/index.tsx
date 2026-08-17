@@ -128,7 +128,7 @@ function Index() {
                   <span className="font-display text-2xl">{c.title}</span>
                   <ArrowRight className="size-5 text-clay transition-transform group-hover:translate-x-1" />
                 </span>
-              </Link>
+              </a>
             ))}
           </div>
         </div>
