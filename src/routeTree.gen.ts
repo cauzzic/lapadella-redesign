@@ -15,6 +15,7 @@ import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as NapojeRouteImport } from './routes/napoje'
 import { Route as ONasRouteImport } from './routes/o-nas'
+import { Route as TydenniMenuRouteImport } from './routes/tydenni-menu'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,6 +47,11 @@ const ONasRoute = ONasRouteImport.update({
   path: '/o-nas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TydenniMenuRoute = TydenniMenuRouteImport.update({
+  id: '/tydenni-menu',
+  path: '/tydenni-menu',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/menu': typeof MenuRoute
   '/napoje': typeof NapojeRoute
   '/o-nas': typeof ONasRoute
+  '/tydenni-menu': typeof TydenniMenuRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/menu': typeof MenuRoute
   '/napoje': typeof NapojeRoute
   '/o-nas': typeof ONasRoute
+  '/tydenni-menu': typeof TydenniMenuRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,14 +79,36 @@ export interface FileRoutesById {
   '/menu': typeof MenuRoute
   '/napoje': typeof NapojeRoute
   '/o-nas': typeof ONasRoute
+  '/tydenni-menu': typeof TydenniMenuRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/galerie' | '/kontakt' | '/menu' | '/napoje' | '/o-nas'
+  fullPaths:
+    | '/'
+    | '/galerie'
+    | '/kontakt'
+    | '/menu'
+    | '/napoje'
+    | '/o-nas'
+    | '/tydenni-menu'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/galerie' | '/kontakt' | '/menu' | '/napoje' | '/o-nas'
+  to:
+    | '/'
+    | '/galerie'
+    | '/kontakt'
+    | '/menu'
+    | '/napoje'
+    | '/o-nas'
+    | '/tydenni-menu'
   id:
-    '__root__' | '/' | '/galerie' | '/kontakt' | '/menu' | '/napoje' | '/o-nas'
+    | '__root__'
+    | '/'
+    | '/galerie'
+    | '/kontakt'
+    | '/menu'
+    | '/napoje'
+    | '/o-nas'
+    | '/tydenni-menu'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -88,6 +118,7 @@ export interface RootRouteChildren {
   MenuRoute: typeof MenuRoute
   NapojeRoute: typeof NapojeRoute
   ONasRoute: typeof ONasRoute
+  TydenniMenuRoute: typeof TydenniMenuRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -134,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ONasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tydenni-menu': {
+      id: '/tydenni-menu'
+      path: '/tydenni-menu'
+      fullPath: '/tydenni-menu'
+      preLoaderRoute: typeof TydenniMenuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -144,6 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   MenuRoute: MenuRoute,
   NapojeRoute: NapojeRoute,
   ONasRoute: ONasRoute,
+  TydenniMenuRoute: TydenniMenuRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
