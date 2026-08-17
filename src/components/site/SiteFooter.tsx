@@ -48,6 +48,14 @@ export function SiteFooter() {
             <Link to="/kontakt" className="hover:text-clay">
               Kontakt
             </Link>
+            <a
+              href={CONTACT.orderUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="text-clay hover:text-cream"
+            >
+              Objednat
+            </a>
           </div>
         </div>
 

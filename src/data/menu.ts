@@ -41,6 +41,7 @@ export const CONTACT = {
   manager: "Rosario Coppola",
   ico: "11833238",
   mapUrl: "https://mapy.com/en/zakladni?source=firm&id=13442340",
+  orderUrl: "https://la-padella.order.app.hd.digital/menus",
 };
 
 export const HOURS = [
