@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, ShoppingBag } from "lucide-react";
 import { CONTACT } from "@/data/menu";
 
 const links = [
@@ -61,9 +61,16 @@ export function SiteHeader() {
               {l.label}
             </Link>
           ))}
-          <a href={CONTACT.phoneHref} className="btn-primary">
+          <a
+            href={CONTACT.phoneHref}
+            className={`btn-ghost ${scrolled ? "text-foreground" : "text-cream"}`}
+          >
             <Phone className="size-4" />
             Rezervace
+          </a>
+          <a href={CONTACT.orderUrl} target="_blank" rel="noreferrer" className="btn-primary">
+            <ShoppingBag className="size-4" />
+            Objednat
           </a>
         </nav>
 
@@ -91,7 +98,16 @@ export function SiteHeader() {
                 {l.label}
               </Link>
             ))}
-            <a href={CONTACT.phoneHref} className="btn-primary mt-2 self-start">
+            <a
+              href={CONTACT.orderUrl}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setOpen(false)}
+              className="btn-primary mt-2 self-start"
+            >
+              <ShoppingBag className="size-4" /> Objednat online
+            </a>
+            <a href={CONTACT.phoneHref} className="btn-ghost self-start text-foreground">
               <Phone className="size-4" /> {CONTACT.phone}
             </a>
           </nav>
