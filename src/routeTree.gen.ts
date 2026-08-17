@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GalerieRouteImport } from './routes/galerie'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as NapojeRouteImport } from './routes/napoje'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalerieRoute = GalerieRouteImport.update({
+  id: '/galerie',
+  path: '/galerie',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MenuRoute = MenuRouteImport.update({
@@ -31,30 +37,34 @@ const NapojeRoute = NapojeRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/galerie': typeof GalerieRoute
   '/menu': typeof MenuRoute
   '/napoje': typeof NapojeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/galerie': typeof GalerieRoute
   '/menu': typeof MenuRoute
   '/napoje': typeof NapojeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/galerie': typeof GalerieRoute
   '/menu': typeof MenuRoute
   '/napoje': typeof NapojeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/menu' | '/napoje'
+  fullPaths: '/' | '/galerie' | '/menu' | '/napoje'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/menu' | '/napoje'
-  id: '__root__' | '/' | '/menu' | '/napoje'
+  to: '/' | '/galerie' | '/menu' | '/napoje'
+  id: '__root__' | '/' | '/galerie' | '/menu' | '/napoje'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GalerieRoute: typeof GalerieRoute
   MenuRoute: typeof MenuRoute
   NapojeRoute: typeof NapojeRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/galerie': {
+      id: '/galerie'
+      path: '/galerie'
+      fullPath: '/galerie'
+      preLoaderRoute: typeof GalerieRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/menu': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GalerieRoute: GalerieRoute,
   MenuRoute: MenuRoute,
   NapojeRoute: NapojeRoute,
 }
