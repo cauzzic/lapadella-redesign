@@ -14,6 +14,7 @@ import { Route as GalerieRouteImport } from './routes/galerie'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as NapojeRouteImport } from './routes/napoje'
+import { Route as ONasRouteImport } from './routes/o-nas'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const NapojeRoute = NapojeRouteImport.update({
   path: '/napoje',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ONasRoute = ONasRouteImport.update({
+  id: '/o-nas',
+  path: '/o-nas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/kontakt': typeof KontaktRoute
   '/menu': typeof MenuRoute
   '/napoje': typeof NapojeRoute
+  '/o-nas': typeof ONasRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/kontakt': typeof KontaktRoute
   '/menu': typeof MenuRoute
   '/napoje': typeof NapojeRoute
+  '/o-nas': typeof ONasRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,15 @@ export interface FileRoutesById {
   '/kontakt': typeof KontaktRoute
   '/menu': typeof MenuRoute
   '/napoje': typeof NapojeRoute
+  '/o-nas': typeof ONasRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/galerie' | '/kontakt' | '/menu' | '/napoje'
+  fullPaths: '/' | '/galerie' | '/kontakt' | '/menu' | '/napoje' | '/o-nas'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/galerie' | '/kontakt' | '/menu' | '/napoje'
-  id: '__root__' | '/' | '/galerie' | '/kontakt' | '/menu' | '/napoje'
+  to: '/' | '/galerie' | '/kontakt' | '/menu' | '/napoje' | '/o-nas'
+  id:
+    '__root__' | '/' | '/galerie' | '/kontakt' | '/menu' | '/napoje' | '/o-nas'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +87,7 @@ export interface RootRouteChildren {
   KontaktRoute: typeof KontaktRoute
   MenuRoute: typeof MenuRoute
   NapojeRoute: typeof NapojeRoute
+  ONasRoute: typeof ONasRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +127,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NapojeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/o-nas': {
+      id: '/o-nas'
+      path: '/o-nas'
+      fullPath: '/o-nas'
+      preLoaderRoute: typeof ONasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +143,7 @@ const rootRouteChildren: RootRouteChildren = {
   KontaktRoute: KontaktRoute,
   MenuRoute: MenuRoute,
   NapojeRoute: NapojeRoute,
+  ONasRoute: ONasRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
