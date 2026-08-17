@@ -50,7 +50,7 @@ export const HOURS = [
   { day: "Čtvrtek", time: "11:00 – 22:00" },
   { day: "Pátek", time: "11:00 – 23:00" },
   { day: "Sobota", time: "12:00 – 23:00" },
-  { day: "Nedělě", time: "12:00 – 21:00" },
+  { day: "Neděle", time: "12:00 – 21:00" },
 ];
 
 export const FOOD_MENU: MenuSection[] = [

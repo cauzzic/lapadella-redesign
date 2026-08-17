@@ -101,7 +101,7 @@ function ContactPage() {
             <div className="overflow-hidden rounded-sm shadow-[var(--shadow-card)]">
               <iframe
                 title="Mapa – La Padella"
-                src="https://frame.mapy.cz/?source=firm&id=13442340&x=17.9786123&y=49.4647051&z=17"
+                src="https://maps.google.com/maps?q=La%20Padella%20Smetanova%20807%20Valask%C3%A9%20Mezi%C5%99%C3%AD%C4%8D%C3%AD&z=16&output=embed"
                 className="h-80 w-full border-0"
                 loading="lazy"
               />
