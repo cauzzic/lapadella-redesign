@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/site/PageHero";
 import { MenuList } from "@/components/site/MenuList";
-import { FOOD_MENU, IMG } from "@/data/menu";
+import { CONTACT, FOOD_MENU, IMG } from "@/data/menu";
+import { ShoppingBag } from "lucide-react";
 
 export const Route = createFileRoute("/menu")({
   head: () => ({
@@ -36,6 +37,20 @@ function MenuPage() {
         text="Čerstvé suroviny, těsto kynuté minimálně 24 hodin a suroviny dovážené přímo z Itálie."
       />
       <MenuList sections={FOOD_MENU} />
+      <section className="bg-secondary/20 px-5 py-16 text-center md:px-8">
+        <h2 className="font-display text-4xl text-foreground md:text-5xl">Máte hlad hned teď?</h2>
+        <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
+          Objednejte si naše jídlo online s vyzvednutím nebo rozvozem.
+        </p>
+        <a
+          href={CONTACT.orderUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="btn-primary mt-8"
+        >
+          <ShoppingBag className="size-4" /> Objednat online
+        </a>
+      </section>
     </>
   );
 }
