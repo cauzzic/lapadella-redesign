@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Phone, ArrowRight } from "lucide-react";
+import { Phone, ArrowRight, ShoppingBag } from "lucide-react";
 import { CONTACT, HOURS, IMG, GALLERY } from "@/data/menu";
 
 export const Route = createFileRoute("/")({
@@ -53,7 +53,10 @@ function Index() {
             výjimečných pokrmů snoubí s tradicemi neapolské kuchyně.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
-            <a href={CONTACT.phoneHref} className="btn-primary">
+            <a href={CONTACT.orderUrl} target="_blank" rel="noreferrer" className="btn-primary">
+              <ShoppingBag className="size-4" /> Objednat online
+            </a>
+            <a href={CONTACT.phoneHref} className="btn-ghost text-cream">
               <Phone className="size-4" /> Rezervovat stůl
             </a>
             <Link to="/menu" className="btn-ghost text-cream">
@@ -148,7 +151,10 @@ function Index() {
               Tak co, máme pro Vás připravit stůl?
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Link to="/menu" className="btn-primary">
+              <a href={CONTACT.orderUrl} target="_blank" rel="noreferrer" className="btn-primary">
+                <ShoppingBag className="size-4" /> Objednat online
+              </a>
+              <Link to="/menu" className="btn-ghost text-foreground">
                 Podívat se na menu
               </Link>
               <a href={CONTACT.phoneHref} className="btn-ghost text-foreground">
