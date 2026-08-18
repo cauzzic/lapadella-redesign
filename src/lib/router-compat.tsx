@@ -2,7 +2,7 @@ import type { ComponentType, ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
-export type MetaTag = Record<string, string>;
+export type MetaTag = Record<string, string | undefined>;
 export type RouteHead = () => { meta?: MetaTag[]; links?: MetaTag[] };
 
 export type RouteDefinition = {
