@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@/lib/router-compat";
 import { Phone, ArrowRight, ShoppingBag } from "lucide-react";
 import { CONTACT, HOURS, IMG, GALLERY } from "@/data/menu";
 
