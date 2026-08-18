@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@/lib/router-compat";
 import { PageHero } from "@/components/site/PageHero";
 import { CONTACT, HOURS, IMG } from "@/data/menu";
 import { WEEKLY_MENU, WEEKLY_NOTE } from "@/data/weekly";

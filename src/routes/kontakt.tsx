@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@/lib/router-compat";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { PageHero } from "@/components/site/PageHero";
 import { CONTACT, HOURS, IMG } from "@/data/menu";

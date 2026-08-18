@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/lib/router-compat";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { CONTACT, HOURS } from "@/data/menu";
 
