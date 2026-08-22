@@ -15,6 +15,7 @@ import { Route as drinksRoute } from "@/routes/napoje";
 import { Route as aboutRoute } from "@/routes/o-nas";
 import { Route as galleryRoute } from "@/routes/galerie";
 import { Route as contactRoute } from "@/routes/kontakt";
+import { Route as adminRoute } from "@/routes/admin";
 
 const routes: RouteDefinition[] = [
   indexRoute,
@@ -25,6 +26,7 @@ const routes: RouteDefinition[] = [
   aboutRoute,
   galleryRoute,
   contactRoute,
+  adminRoute,
 ];
 
 
