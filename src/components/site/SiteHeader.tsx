@@ -72,11 +72,59 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
-          {links.map((l) => (
+          <Link
+            to="/"
+            activeOptions={{ exact: true }}
+            className={`text-[0.7rem] font-semibold tracking-[0.18em] uppercase transition-colors ${
+              scrolled ? "text-muted-foreground hover:text-primary" : "text-cream/80 hover:text-cream"
+            }`}
+            activeProps={{ className: scrolled ? "text-primary" : "text-clay" }}
+          >
+            Domů
+          </Link>
+
+          <div ref={menuRef} className="relative">
+            <button
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-expanded={menuOpen}
+              aria-haspopup="true"
+              className={`flex items-center gap-1.5 text-[0.7rem] font-semibold tracking-[0.18em] uppercase transition-colors ${
+                menuActive
+                  ? scrolled
+                    ? "text-primary"
+                    : "text-clay"
+                  : scrolled
+                    ? "text-muted-foreground hover:text-primary"
+                    : "text-cream/80 hover:text-cream"
+              }`}
+            >
+              Menu
+              <ChevronDown
+                className={`size-3.5 transition-transform ${menuOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            {menuOpen && (
+              <div className="absolute left-1/2 top-full z-50 mt-4 w-56 -translate-x-1/2 overflow-hidden rounded-sm border border-border bg-card py-2 shadow-[var(--shadow-card)]">
+                {menuLinks.map((l) => (
+                  <Link
+                    key={l.to}
+                    to={l.to}
+                    onClick={() => setMenuOpen(false)}
+                    className="block px-5 py-2.5 text-[0.7rem] font-semibold tracking-[0.16em] uppercase text-muted-foreground transition-colors hover:bg-secondary/25 hover:text-primary"
+                    activeProps={{ className: "text-primary" }}
+                  >
+                    {l.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {links.slice(1).map((l) => (
             <Link
               key={l.to}
               to={l.to}
-              activeOptions={{ exact: l.to === "/" }}
               className={`text-[0.7rem] font-semibold tracking-[0.18em] uppercase transition-colors ${
                 scrolled ? "text-muted-foreground hover:text-primary" : "text-cream/80 hover:text-cream"
               }`}
@@ -103,6 +151,7 @@ export function SiteHeader() {
           onClick={() => setOpen((v) => !v)}
           className={`lg:hidden ${scrolled ? "text-foreground" : "text-cream"}`}
         >
+
           {open ? <X className="size-7" /> : <Menu className="size-7" />}
         </button>
       </div>
