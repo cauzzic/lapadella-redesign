@@ -151,7 +151,6 @@ export function SiteHeader() {
           onClick={() => setOpen((v) => !v)}
           className={`lg:hidden ${scrolled ? "text-foreground" : "text-cream"}`}
         >
-
           {open ? <X className="size-7" /> : <Menu className="size-7" />}
         </button>
       </div>
@@ -159,18 +158,47 @@ export function SiteHeader() {
       {open && (
         <div className="border-t border-border bg-background px-5 py-6 lg:hidden">
           <nav className="flex flex-col gap-4">
-            {links.map((l) => (
+            <Link
+              to="/"
+              onClick={() => setOpen(false)}
+              className="font-display text-2xl text-foreground"
+              activeProps={{ className: "text-primary" }}
+              activeOptions={{ exact: true }}
+            >
+              Domů
+            </Link>
+
+            <div>
+              <p className="text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-primary">
+                Menu
+              </p>
+              <div className="mt-2 flex flex-col gap-3 border-l border-border pl-4">
+                {menuLinks.map((l) => (
+                  <Link
+                    key={l.to}
+                    to={l.to}
+                    onClick={() => setOpen(false)}
+                    className="font-display text-2xl text-foreground"
+                    activeProps={{ className: "text-primary" }}
+                  >
+                    {l.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {links.slice(1).map((l) => (
               <Link
                 key={l.to}
                 to={l.to}
                 onClick={() => setOpen(false)}
                 className="font-display text-2xl text-foreground"
                 activeProps={{ className: "text-primary" }}
-                activeOptions={{ exact: l.to === "/" }}
               >
                 {l.label}
               </Link>
             ))}
+
             <a
               href={CONTACT.orderUrl}
               target="_blank"
