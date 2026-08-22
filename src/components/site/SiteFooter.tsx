@@ -45,6 +45,10 @@ export function SiteFooter() {
             <Link to="/tydenni-menu" className="hover:text-clay">
               Týdenní menu
             </Link>
+            <Link to="/specialni-menu" className="hover:text-clay">
+              Speciální menu
+            </Link>
+
             <Link to="/galerie" className="hover:text-clay">
               Galerie
             </Link>
