@@ -1,17 +1,23 @@
 import { Link } from "@/lib/router-compat";
-import { useEffect, useState } from "react";
-import { Menu, X, Phone, ShoppingBag } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { Menu, X, Phone, ShoppingBag, ChevronDown } from "lucide-react";
 import { CONTACT } from "@/data/menu";
+
+const menuLinks = [
+  { to: "/menu", label: "Menu" },
+  { to: "/tydenni-menu", label: "Týdenní menu" },
+  { to: "/specialni-menu", label: "Speciální menu" },
+];
 
 const links = [
   { to: "/", label: "Domů" },
-  { to: "/menu", label: "Menu" },
-  { to: "/tydenni-menu", label: "Týdenní menu" },
   { to: "/napoje", label: "Nápoje" },
   { to: "/o-nas", label: "O nás" },
   { to: "/galerie", label: "Galerie" },
   { to: "/kontakt", label: "Kontakt" },
 ];
+
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
