@@ -10,6 +10,7 @@ import type { RouteDefinition } from "@/lib/router-compat";
 import { Route as indexRoute } from "@/routes/index";
 import { Route as menuRoute } from "@/routes/menu";
 import { Route as weeklyRoute } from "@/routes/tydenni-menu";
+import { Route as specialRoute } from "@/routes/specialni-menu";
 import { Route as drinksRoute } from "@/routes/napoje";
 import { Route as aboutRoute } from "@/routes/o-nas";
 import { Route as galleryRoute } from "@/routes/galerie";
@@ -19,11 +20,13 @@ const routes: RouteDefinition[] = [
   indexRoute,
   menuRoute,
   weeklyRoute,
+  specialRoute,
   drinksRoute,
   aboutRoute,
   galleryRoute,
   contactRoute,
 ];
+
 
 const queryClient = new QueryClient();
 
