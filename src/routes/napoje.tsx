@@ -1,7 +1,9 @@
 import { createFileRoute } from "@/lib/router-compat";
 import { PageHero } from "@/components/site/PageHero";
 import { MenuList } from "@/components/site/MenuList";
-import { DRINK_MENU, IMG } from "@/data/menu";
+import { IMG } from "@/data/menu";
+import { DRINK_SECTIONS } from "@/data/menuSections";
+import { useMenuSections } from "@/hooks/useMenuSections";
 
 export const Route = createFileRoute("/napoje")({
   head: () => ({
@@ -27,6 +29,8 @@ export const Route = createFileRoute("/napoje")({
 });
 
 function DrinksPage() {
+  const { sections } = useMenuSections(DRINK_SECTIONS);
+
   return (
     <>
       <PageHero
@@ -35,7 +39,7 @@ function DrinksPage() {
         image={IMG.oblique4}
         text="Vína pečlivě vybíráme z italských vinařských oblastí, aby dokonale ladila s naším menu."
       />
-      <MenuList sections={DRINK_MENU} />
+      <MenuList sections={sections} />
     </>
   );
 }
