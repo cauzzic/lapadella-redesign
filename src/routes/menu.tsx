@@ -1,7 +1,9 @@
 import { createFileRoute } from "@/lib/router-compat";
 import { PageHero } from "@/components/site/PageHero";
 import { MenuList } from "@/components/site/MenuList";
-import { CONTACT, FOOD_MENU, IMG } from "@/data/menu";
+import { CONTACT, IMG } from "@/data/menu";
+import { FOOD_SECTIONS } from "@/data/menuSections";
+import { useMenuSections } from "@/hooks/useMenuSections";
 import { ShoppingBag } from "lucide-react";
 
 export const Route = createFileRoute("/menu")({
@@ -28,6 +30,8 @@ export const Route = createFileRoute("/menu")({
 });
 
 function MenuPage() {
+  const { sections } = useMenuSections(FOOD_SECTIONS);
+
   return (
     <>
       <PageHero
@@ -36,7 +40,7 @@ function MenuPage() {
         image={IMG.menuBanner}
         text="Čerstvé suroviny, těsto kynuté minimálně 24 hodin a suroviny dovážené přímo z Itálie."
       />
-      <MenuList sections={FOOD_MENU} />
+      <MenuList sections={sections} />
       <section className="bg-secondary/20 px-5 py-16 text-center md:px-8">
         <h2 className="font-display text-4xl text-foreground md:text-5xl">Máte hlad hned teď?</h2>
         <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
