@@ -2,6 +2,8 @@ import { createFileRoute } from "@/lib/router-compat";
 import { PageHero } from "@/components/site/PageHero";
 import { CONTACT, HOURS, IMG } from "@/data/menu";
 import { WEEKLY_MENU, WEEKLY_NOTE } from "@/data/weekly";
+import { WEEKLY_SECTIONS } from "@/data/menuSections";
+import { useMenuSections } from "@/hooks/useMenuSections";
 import { Clock, Phone, ShoppingBag } from "lucide-react";
 
 export const Route = createFileRoute("/tydenni-menu")({
@@ -28,6 +30,9 @@ export const Route = createFileRoute("/tydenni-menu")({
 });
 
 function WeeklyMenuPage() {
+  const { sections } = useMenuSections(WEEKLY_SECTIONS);
+  const dbItems = sections[0]?.items ?? [];
+
   return (
     <>
       <PageHero
@@ -39,7 +44,30 @@ function WeeklyMenuPage() {
 
       <div className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
         <div className="grid gap-6 lg:grid-cols-2">
-          {WEEKLY_MENU.map((d) => (
+          {dbItems.length > 0 ? (
+            <article className="rounded-sm border border-border bg-card p-6 shadow-[var(--shadow-card)] md:p-8">
+              <div className="flex items-baseline gap-4">
+                <h2 className="font-display text-3xl text-foreground md:text-4xl">Nabídka týdne</h2>
+                <span className="h-px flex-1 bg-border" />
+              </div>
+              <ul className="mt-4 divide-y divide-border">
+                {dbItems.map((m) => (
+                  <li key={m.name} className="flex gap-6 py-4">
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold tracking-[0.06em] uppercase">{m.name}</p>
+                      {m.desc && (
+                        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{m.desc}</p>
+                      )}
+                    </div>
+                    <span className="ml-auto shrink-0 font-display text-xl text-primary">
+                      {m.price}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ) : (
+            WEEKLY_MENU.map((d) => (
             <article
               key={d.day}
               className="rounded-sm border border-border bg-card p-6 shadow-[var(--shadow-card)] md:p-8"
@@ -78,7 +106,8 @@ function WeeklyMenuPage() {
                 ))}
               </ul>
             </article>
-          ))}
+            ))
+          )}
 
           <aside className="rounded-sm border border-border bg-secondary/20 p-6 md:p-8">
             <div className="flex items-center gap-3">
