@@ -3,8 +3,7 @@ import { PageHero } from "@/components/site/PageHero";
 import { MenuList } from "@/components/site/MenuList";
 import { CONTACT, IMG } from "@/data/menu";
 import { SPECIAL_MENU, SPECIAL_NOTE } from "@/data/special";
-import { SPECIAL_SECTIONS } from "@/data/menuSections";
-import { useMenuSections } from "@/hooks/useMenuSections";
+import { useSectionGroups } from "@/hooks/useSectionGroups";
 import { Phone } from "lucide-react";
 
 export const Route = createFileRoute("/specialni-menu")({
@@ -31,8 +30,23 @@ export const Route = createFileRoute("/specialni-menu")({
 });
 
 function SpecialMenuPage() {
-  const { sections } = useMenuSections(SPECIAL_SECTIONS);
-  const list = sections.length > 0 ? sections : SPECIAL_MENU;
+  const { groups } = useSectionGroups("specialni");
+  const list =
+    groups.length > 0
+      ? groups.map((items, i) => {
+          const meta = SPECIAL_MENU[i];
+          const perPerson = meta?.id === "degustace";
+          return {
+            id: meta?.id ?? `specialni-${i + 1}`,
+            title: meta?.title ?? "Speciální nabídka",
+            items: items.map((it) => ({
+              name: it.name,
+              price: perPerson && it.price ? `${it.price} / os.` : it.price,
+              ...(it.desc ? { desc: it.desc } : {}),
+            })),
+          };
+        })
+      : SPECIAL_MENU;
 
   return (
     <>
