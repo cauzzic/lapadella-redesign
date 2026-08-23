@@ -229,25 +229,7 @@ function AuthCard() {
   );
 }
 
-function NoAccessCard({ email, onClaimed }: { email: string; onClaimed: () => void | Promise<void> }) {
-  const [busy, setBusy] = useState(false);
-
-  async function claim() {
-    setBusy(true);
-    const { data, error } = await supabase.rpc("claim_admin");
-    setBusy(false);
-    if (error) {
-      toast.error("Nepodařilo se získat administrátorská práva.");
-      return;
-    }
-    if (data === true) {
-      toast.success("Administrátorská práva přidělena.");
-      await onClaimed();
-    } else {
-      toast.error("Administrátor už existuje – práva ti musí přidělit on.");
-    }
-  }
-
+function NoAccessCard({ email }: { email: string }) {
   return (
     <Card className="mx-auto max-w-md">
       <CardHeader>
@@ -255,12 +237,9 @@ function NoAccessCard({ email, onClaimed }: { email: string; onClaimed: () => vo
       </CardHeader>
       <CardContent className="space-y-4">
         <p className="text-sm text-muted-foreground">
-          Přihlášen jako <strong>{email}</strong>, ale tento účet nemá roli administrátora.
+          Přihlášen jako <strong>{email}</strong>. Tento účet má roli běžného uživatele – přístup do
+          administrace ti může přidělit pouze vlastník webu.
         </p>
-        <Button onClick={claim} disabled={busy} className="w-full">
-          {busy && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Stát se administrátorem (pouze první účet)
-        </Button>
         <Button variant="outline" className="w-full" onClick={() => void supabase.auth.signOut()}>
           <LogOut className="mr-2 h-4 w-4" /> Odhlásit se
         </Button>
@@ -269,7 +248,109 @@ function NoAccessCard({ email, onClaimed }: { email: string; onClaimed: () => vo
   );
 }
 
-function MenuAdmin({ email }: { email: string }) {
+type UserRow = { user_id: string; email: string; role: string };
+
+function UsersAdmin() {
+  const [users, setUsers] = useState<UserRow[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [busyId, setBusyId] = useState<string | null>(null);
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    const { data, error } = await supabase.rpc("list_users");
+    setLoading(false);
+    if (error) {
+      toast.error("Načtení uživatelů se nepodařilo.");
+      return;
+    }
+    setUsers((data ?? []) as UserRow[]);
+  }, []);
+
+  useEffect(() => {
+    void load();
+  }, [load]);
+
+  async function setAdmin(row: UserRow, isAdmin: boolean) {
+    setBusyId(row.user_id);
+    const { error } = await supabase.rpc("set_admin", { _user_id: row.user_id, _is_admin: isAdmin });
+    setBusyId(null);
+    if (error) {
+      toast.error(`Změna role se nepodařila: ${error.message}`);
+      return;
+    }
+    toast.success(isAdmin ? "Role admin přidělena." : "Role admin odebrána.");
+    await load();
+  }
+
+  const roleLabel: Record<string, string> = {
+    owner: "Vlastník",
+    admin: "Administrátor",
+    user: "Uživatel",
+  };
+
+  return (
+    <div className="space-y-4">
+      <div>
+        <h2 className="text-2xl font-semibold text-foreground">Správa uživatelů</h2>
+        <p className="text-sm text-muted-foreground">
+          Pouze vlastník může přidělovat a odebírat administrátorská oprávnění.
+        </p>
+      </div>
+      {loading ? (
+        <CenteredSpinner />
+      ) : (
+        <div className="overflow-x-auto rounded-lg border border-border">
+          <table className="w-full text-sm">
+            <thead className="bg-muted/50 text-left">
+              <tr>
+                <th className="p-3">E-mail</th>
+                <th className="p-3">Role</th>
+                <th className="p-3 text-right">Akce</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((u) => (
+                <tr key={u.user_id} className="border-t border-border">
+                  <td className="p-3 text-foreground">{u.email}</td>
+                  <td className="p-3 text-muted-foreground">{roleLabel[u.role] ?? u.role}</td>
+                  <td className="p-3">
+                    <div className="flex justify-end">
+                      {u.role === "owner" ? (
+                        <span className="text-xs text-muted-foreground">Nelze změnit</span>
+                      ) : u.role === "admin" ? (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          disabled={busyId === u.user_id}
+                          onClick={() => void setAdmin(u, false)}
+                        >
+                          {busyId === u.user_id && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                          Odebrat admina
+                        </Button>
+                      ) : (
+                        <Button
+                          size="sm"
+                          disabled={busyId === u.user_id}
+                          onClick={() => void setAdmin(u, true)}
+                        >
+                          {busyId === u.user_id && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                          Povýšit na admina
+                        </Button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
+
   const [rows, setRows] = useState<MenuRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState<FormState | null>(null);
