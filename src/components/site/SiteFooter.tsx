@@ -64,6 +64,29 @@ export function SiteFooter() {
               Objednat
             </a>
           </div>
+          <p className="pt-6 text-[0.7rem] font-semibold tracking-[0.22em] text-clay uppercase">
+            Sledujte nás
+          </p>
+          <div className="mt-3 flex items-center gap-4">
+            <a
+              href={CONTACT.instagram}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram La Padella"
+              className="text-cream/70 transition-colors hover:text-clay"
+            >
+              <Instagram className="size-5" />
+            </a>
+            <a
+              href={CONTACT.facebook}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Facebook La Padella"
+              className="text-cream/70 transition-colors hover:text-clay"
+            >
+              <Facebook className="size-5" />
+            </a>
+          </div>
         </div>
 
         <div>
