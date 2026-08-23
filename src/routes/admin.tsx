@@ -10,8 +10,21 @@ import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
-import { KNOWN_SECTION_IDS } from "@/data/menuSections";
+import { KNOWN_SECTION_IDS, FOOD_SECTIONS, DRINK_SECTIONS } from "@/data/menuSections";
 import { Loader2, LogOut, Pencil, Plus, Trash2, X } from "lucide-react";
+
+const FOOD_SECTION_IDS = FOOD_SECTIONS.map((s) => s.id);
+const DRINK_SECTION_IDS = DRINK_SECTIONS.map((s) => s.id);
+
+const SECTION_FILTERS = [
+  { id: "all", label: "Vše" },
+  { id: "menu", label: "Menu" },
+  { id: "napoje", label: "Nápoje" },
+  { id: "tydenni", label: "Týdenní menu" },
+  { id: "specialni", label: "Speciální menu" },
+] as const;
+
+type SectionFilterId = (typeof SECTION_FILTERS)[number]["id"];
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -257,6 +270,7 @@ function MenuAdmin({ email }: { email: string }) {
   const [form, setForm] = useState<FormState | null>(null);
   const [saving, setSaving] = useState(false);
   const [filter, setFilter] = useState("");
+  const [sectionFilter, setSectionFilter] = useState<SectionFilterId>("all");
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -283,12 +297,25 @@ function MenuAdmin({ email }: { email: string }) {
   );
 
   const visible = useMemo(() => {
+    let result = rows;
+    if (sectionFilter === "menu") {
+      result = result.filter((r) => FOOD_SECTION_IDS.includes(r.sekce));
+    } else if (sectionFilter === "napoje") {
+      result = result.filter((r) => DRINK_SECTION_IDS.includes(r.sekce));
+    } else if (sectionFilter === "tydenni") {
+      result = result.filter((r) => r.sekce === "tydenni");
+    } else if (sectionFilter === "specialni") {
+      result = result.filter((r) => r.sekce === "specialni");
+    }
+
     const q = filter.trim().toLowerCase();
-    if (!q) return rows;
-    return rows.filter(
-      (r) => r.nazev.toLowerCase().includes(q) || r.sekce.toLowerCase().includes(q),
-    );
-  }, [rows, filter]);
+    if (q) {
+      result = result.filter(
+        (r) => r.nazev.toLowerCase().includes(q) || r.sekce.toLowerCase().includes(q),
+      );
+    }
+    return result;
+  }, [rows, sectionFilter, filter]);
 
   async function save() {
     if (!form) return;
@@ -456,12 +483,6 @@ function MenuAdmin({ email }: { email: string }) {
           />
         </div>
         <div className="flex flex-wrap gap-2">
-          <Button variant="outline" size="sm" onClick={() => setFilter("tydenni")}>
-            Týdenní menu
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => setFilter("specialni")}>
-            Speciální menu
-          </Button>
           <Button
             variant="outline"
             size="sm"
@@ -476,12 +497,32 @@ function MenuAdmin({ email }: { email: string }) {
           >
             <Plus className="mr-2 h-4 w-4" /> Položka do speciálního
           </Button>
-          {filter && (
-            <Button variant="ghost" size="sm" onClick={() => setFilter("")}>
-              Zrušit filtr
-            </Button>
-          )}
         </div>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2">
+        {SECTION_FILTERS.map((f) => (
+          <Button
+            key={f.id}
+            variant={sectionFilter === f.id ? "default" : "outline"}
+            size="sm"
+            onClick={() => setSectionFilter(f.id)}
+          >
+            {f.label}
+          </Button>
+        ))}
+        {(sectionFilter !== "all" || filter.trim() !== "") && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              setSectionFilter("all");
+              setFilter("");
+            }}
+          >
+            Zrušit filtr
+          </Button>
+        )}
       </div>
 
       {loading ? (
