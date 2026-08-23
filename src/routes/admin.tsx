@@ -297,12 +297,25 @@ function MenuAdmin({ email }: { email: string }) {
   );
 
   const visible = useMemo(() => {
+    let result = rows;
+    if (sectionFilter === "menu") {
+      result = result.filter((r) => FOOD_SECTION_IDS.includes(r.sekce));
+    } else if (sectionFilter === "napoje") {
+      result = result.filter((r) => DRINK_SECTION_IDS.includes(r.sekce));
+    } else if (sectionFilter === "tydenni") {
+      result = result.filter((r) => r.sekce === "tydenni");
+    } else if (sectionFilter === "specialni") {
+      result = result.filter((r) => r.sekce === "specialni");
+    }
+
     const q = filter.trim().toLowerCase();
-    if (!q) return rows;
-    return rows.filter(
-      (r) => r.nazev.toLowerCase().includes(q) || r.sekce.toLowerCase().includes(q),
-    );
-  }, [rows, filter]);
+    if (q) {
+      result = result.filter(
+        (r) => r.nazev.toLowerCase().includes(q) || r.sekce.toLowerCase().includes(q),
+      );
+    }
+    return result;
+  }, [rows, sectionFilter, filter]);
 
   async function save() {
     if (!form) return;
