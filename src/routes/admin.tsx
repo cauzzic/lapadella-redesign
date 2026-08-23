@@ -10,6 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
+import { KNOWN_SECTION_IDS } from "@/data/menuSections";
 import { Loader2, LogOut, Pencil, Plus, Trash2, X } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
@@ -277,7 +278,7 @@ function MenuAdmin({ email }: { email: string }) {
   }, [load]);
 
   const sections = useMemo(
-    () => Array.from(new Set(rows.map((r) => r.sekce))).sort(),
+    () => Array.from(new Set([...rows.map((r) => r.sekce), ...KNOWN_SECTION_IDS])).sort(),
     [rows],
   );
 
@@ -446,12 +447,41 @@ function MenuAdmin({ email }: { email: string }) {
         </Card>
       )}
 
-      <div className="max-w-sm">
-        <Input
-          placeholder="Hledat podle názvu nebo sekce…"
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-        />
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="max-w-sm flex-1">
+          <Input
+            placeholder="Hledat podle názvu nebo sekce…"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <Button variant="outline" size="sm" onClick={() => setFilter("tydenni")}>
+            Týdenní menu
+          </Button>
+          <Button variant="outline" size="sm" onClick={() => setFilter("specialni")}>
+            Speciální menu
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setForm({ ...emptyForm, sekce: "tydenni" })}
+          >
+            <Plus className="mr-2 h-4 w-4" /> Položka do týdenního
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setForm({ ...emptyForm, sekce: "specialni" })}
+          >
+            <Plus className="mr-2 h-4 w-4" /> Položka do speciálního
+          </Button>
+          {filter && (
+            <Button variant="ghost" size="sm" onClick={() => setFilter("")}>
+              Zrušit filtr
+            </Button>
+          )}
+        </div>
       </div>
 
       {loading ? (
