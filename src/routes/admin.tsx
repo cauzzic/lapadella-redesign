@@ -10,8 +10,21 @@ import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
-import { KNOWN_SECTION_IDS } from "@/data/menuSections";
+import { KNOWN_SECTION_IDS, FOOD_SECTIONS, DRINK_SECTIONS } from "@/data/menuSections";
 import { Loader2, LogOut, Pencil, Plus, Trash2, X } from "lucide-react";
+
+const FOOD_SECTION_IDS = FOOD_SECTIONS.map((s) => s.id);
+const DRINK_SECTION_IDS = DRINK_SECTIONS.map((s) => s.id);
+
+const SECTION_FILTERS = [
+  { id: "all", label: "Vše" },
+  { id: "menu", label: "Menu" },
+  { id: "napoje", label: "Nápoje" },
+  { id: "tydenni", label: "Týdenní menu" },
+  { id: "specialni", label: "Speciální menu" },
+] as const;
+
+type SectionFilterId = (typeof SECTION_FILTERS)[number]["id"];
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
