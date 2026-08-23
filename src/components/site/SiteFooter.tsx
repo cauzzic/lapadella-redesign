@@ -101,26 +101,6 @@ export function SiteFooter() {
               </li>
             ))}
           </ul>
-          <div className="mt-6 flex items-center gap-4">
-            <a
-              href={CONTACT.instagram}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Instagram La Padella"
-              className="text-cream/70 transition-colors hover:text-clay"
-            >
-              <Instagram className="size-5" />
-            </a>
-            <a
-              href={CONTACT.facebook}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Facebook La Padella"
-              className="text-cream/70 transition-colors hover:text-clay"
-            >
-              <Facebook className="size-5" />
-            </a>
-          </div>
         </div>
       </div>
 
