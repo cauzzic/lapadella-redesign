@@ -64,21 +64,10 @@ export function SiteFooter() {
               Objednat
             </a>
           </div>
-        </div>
-
-        <div>
-          <p className="flex items-center gap-2 text-[0.7rem] font-semibold tracking-[0.22em] text-clay uppercase">
-            <Clock className="size-4" /> Otevírací doba
+          <p className="pt-6 text-[0.7rem] font-semibold tracking-[0.22em] text-clay uppercase">
+            Sledujte nás
           </p>
-          <ul className="mt-5 space-y-2 text-sm">
-            {HOURS.map((h) => (
-              <li key={h.day} className="flex justify-between gap-4 border-b border-cream/10 pb-2">
-                <span className="text-cream/70">{h.day}</span>
-                <span>{h.time}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-6 flex items-center gap-4">
+          <div className="mt-3 flex items-center gap-4">
             <a
               href={CONTACT.instagram}
               target="_blank"
@@ -98,6 +87,20 @@ export function SiteFooter() {
               <Facebook className="size-5" />
             </a>
           </div>
+        </div>
+
+        <div>
+          <p className="flex items-center gap-2 text-[0.7rem] font-semibold tracking-[0.22em] text-clay uppercase">
+            <Clock className="size-4" /> Otevírací doba
+          </p>
+          <ul className="mt-5 space-y-2 text-sm">
+            {HOURS.map((h) => (
+              <li key={h.day} className="flex justify-between gap-4 border-b border-cream/10 pb-2">
+                <span className="text-cream/70">{h.day}</span>
+                <span>{h.time}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
