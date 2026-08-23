@@ -74,6 +74,7 @@ function AdminPage() {
   const [session, setSession] = useState<Session | null>(null);
   const [authChecked, setAuthChecked] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isOwner, setIsOwner] = useState(false);
   const [roleChecked, setRoleChecked] = useState(false);
 
   useEffect(() => {
@@ -93,16 +94,15 @@ function AdminPage() {
     const user = userData.user;
     if (!user) {
       setIsAdmin(false);
+      setIsOwner(false);
       setRoleChecked(true);
       return;
     }
-    const { data } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", user.id)
-      .eq("role", "admin")
-      .maybeSingle();
-    setIsAdmin(Boolean(data));
+    await supabase.rpc("ensure_user_role");
+    const { data } = await supabase.from("user_roles").select("role").eq("user_id", user.id);
+    const roles = (data ?? []).map((r) => r.role as string);
+    setIsOwner(roles.includes("owner"));
+    setIsAdmin(roles.includes("owner") || roles.includes("admin"));
     setRoleChecked(true);
   }, []);
 
@@ -110,6 +110,7 @@ function AdminPage() {
     if (!authChecked) return;
     if (!session) {
       setIsAdmin(false);
+      setIsOwner(false);
       setRoleChecked(true);
       return;
     }
@@ -122,20 +123,24 @@ function AdminPage() {
   return (
     <div className="min-h-[70vh] bg-background px-4 py-16">
       <Toaster />
-      <div className="mx-auto w-full max-w-5xl">
+      <div className="mx-auto w-full max-w-5xl space-y-12">
         {!session ? (
           <AuthCard />
         ) : !roleChecked ? (
           <CenteredSpinner />
         ) : isAdmin ? (
-          <MenuAdmin email={session.user.email ?? ""} />
+          <>
+            <MenuAdmin email={session.user.email ?? ""} isOwner={isOwner} />
+            {isOwner && <UsersAdmin />}
+          </>
         ) : (
-          <NoAccessCard email={session.user.email ?? ""} onClaimed={checkRole} />
+          <NoAccessCard email={session.user.email ?? ""} />
         )}
       </div>
     </div>
   );
 }
+
 
 function CenteredSpinner() {
   return (
