@@ -42,6 +42,9 @@ export const CONTACT = {
   ico: "11833238",
   mapUrl: "https://mapy.com/en/zakladni?source=firm&id=13442340",
   orderUrl: "https://la-padella.order.app.hd.digital/menus",
+  instagram: "https://www.instagram.com/restaurace_lapadella/",
+  facebook:
+    "https://www.facebook.com/p/La-Padella-italsk%C3%A1-restaurace-pizzerie-100085945641209/",
 };
 
 export const HOURS = [
