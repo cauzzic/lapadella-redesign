@@ -483,12 +483,6 @@ function MenuAdmin({ email }: { email: string }) {
           />
         </div>
         <div className="flex flex-wrap gap-2">
-          <Button variant="outline" size="sm" onClick={() => setFilter("tydenni")}>
-            Týdenní menu
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => setFilter("specialni")}>
-            Speciální menu
-          </Button>
           <Button
             variant="outline"
             size="sm"
@@ -503,12 +497,32 @@ function MenuAdmin({ email }: { email: string }) {
           >
             <Plus className="mr-2 h-4 w-4" /> Položka do speciálního
           </Button>
-          {filter && (
-            <Button variant="ghost" size="sm" onClick={() => setFilter("")}>
-              Zrušit filtr
-            </Button>
-          )}
         </div>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2">
+        {SECTION_FILTERS.map((f) => (
+          <Button
+            key={f.id}
+            variant={sectionFilter === f.id ? "default" : "outline"}
+            size="sm"
+            onClick={() => setSectionFilter(f.id)}
+          >
+            {f.label}
+          </Button>
+        ))}
+        {(sectionFilter !== "all" || filter.trim() !== "") && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              setSectionFilter("all");
+              setFilter("");
+            }}
+          >
+            Zrušit filtr
+          </Button>
+        )}
       </div>
 
       {loading ? (
