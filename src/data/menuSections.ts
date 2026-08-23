@@ -36,3 +36,17 @@ export const DRINK_SECTIONS: SectionMeta[] = [
   { id: "nealko", title: "Nealkoholické nápoje" },
   { id: "teple", title: "Teplé nápoje" },
 ];
+
+/** Sekce pro Týdenní menu (databázová hodnota sekce = "tydenni"). */
+export const WEEKLY_SECTIONS: SectionMeta[] = [{ id: "tydenni", title: "Týdenní menu" }];
+
+/** Sekce pro Speciální menu (databázová hodnota sekce = "specialni"). */
+export const SPECIAL_SECTIONS: SectionMeta[] = [{ id: "specialni", title: "Speciální menu" }];
+
+/** Všechny známé hodnoty sloupce sekce – používá se v administraci. */
+export const KNOWN_SECTION_IDS: string[] = [
+  ...FOOD_SECTIONS.map((s) => s.id),
+  ...DRINK_SECTIONS.map((s) => s.id),
+  "tydenni",
+  "specialni",
+];
