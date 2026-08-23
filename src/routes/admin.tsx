@@ -461,7 +461,7 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
         <div>
           <h1 className="text-3xl font-semibold text-foreground">Administrace menu</h1>
           <p className="text-sm text-muted-foreground">
-            Přihlášen jako {email} · {rows.length} položek
+            Přihlášen jako {email} ({isOwner ? "vlastník" : "administrátor"}) · {rows.length} položek
           </p>
         </div>
         <div className="flex gap-2">
