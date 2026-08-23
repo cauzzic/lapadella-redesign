@@ -3,6 +3,8 @@ import { PageHero } from "@/components/site/PageHero";
 import { MenuList } from "@/components/site/MenuList";
 import { CONTACT, IMG } from "@/data/menu";
 import { SPECIAL_MENU, SPECIAL_NOTE } from "@/data/special";
+import { SPECIAL_SECTIONS } from "@/data/menuSections";
+import { useMenuSections } from "@/hooks/useMenuSections";
 import { Phone } from "lucide-react";
 
 export const Route = createFileRoute("/specialni-menu")({
@@ -29,6 +31,9 @@ export const Route = createFileRoute("/specialni-menu")({
 });
 
 function SpecialMenuPage() {
+  const { sections } = useMenuSections(SPECIAL_SECTIONS);
+  const list = sections.length > 0 ? sections : SPECIAL_MENU;
+
   return (
     <>
       <PageHero
@@ -37,7 +42,7 @@ function SpecialMenuPage() {
         image={IMG.food4}
         text={SPECIAL_NOTE}
       />
-      <MenuList sections={SPECIAL_MENU} />
+      <MenuList sections={list} />
       <section className="bg-secondary/20 px-5 py-16 text-center md:px-8">
         <h2 className="font-display text-4xl text-foreground md:text-5xl">Rezervujte si stůl</h2>
         <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
