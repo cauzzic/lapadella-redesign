@@ -1,5 +1,5 @@
 import { Link } from "@/lib/router-compat";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Instagram, Facebook } from "lucide-react";
 import { CONTACT, HOURS } from "@/data/menu";
 
 export function SiteFooter() {
