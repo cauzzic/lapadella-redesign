@@ -270,6 +270,7 @@ function MenuAdmin({ email }: { email: string }) {
   const [form, setForm] = useState<FormState | null>(null);
   const [saving, setSaving] = useState(false);
   const [filter, setFilter] = useState("");
+  const [sectionFilter, setSectionFilter] = useState<SectionFilterId>("all");
 
   const load = useCallback(async () => {
     setLoading(true);
