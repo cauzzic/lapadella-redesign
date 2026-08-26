@@ -4,7 +4,7 @@ import { CONTACT, HOURS, IMG } from "@/data/menu";
 import { AllergenInfo } from "@/components/site/AllergenInfo";
 import { AllergenIcons } from "@/components/site/AllergenIcons";
 import { WEEKLY_MENU, WEEKLY_NOTE } from "@/data/weekly";
-import { useNamedGroups } from "@/hooks/useSectionGroups";
+import { useWeeklyDayGroups } from "@/hooks/useSectionGroups";
 import { WEEKLY_DAYS } from "@/data/menuSections";
 import { Clock, Phone, ShoppingBag } from "lucide-react";
 
@@ -63,18 +63,24 @@ function WeeklyMenuPage() {
                 <span className="h-px flex-1 bg-border" />
               </div>
 
-              <p className="mt-5 text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-primary">
-                Polévka
-              </p>
-              <div className="mt-2 flex gap-6">
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {d.soup.name}
-                  <AllergenIcons numbers={(d.soup as { allergens?: number[] }).allergens} />
-                </p>
-                <span className="ml-auto shrink-0 font-display text-lg text-primary">
-                  {d.soup.price}
-                </span>
-              </div>
+              {d.soups.length > 0 && (
+                <>
+                  <p className="mt-5 text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-primary">
+                    Polévka
+                  </p>
+                  {d.soups.map((s) => (
+                    <div key={s.name} className="mt-2 flex gap-6">
+                      <p className="text-sm leading-relaxed text-muted-foreground">
+                        {s.name}
+                        <AllergenIcons numbers={(s as { allergens?: number[] }).allergens} />
+                      </p>
+                      <span className="ml-auto shrink-0 font-display text-lg text-primary">
+                        {s.price}
+                      </span>
+                    </div>
+                  ))}
+                </>
+              )}
 
               <p className="mt-6 text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-primary">
                 Hlavní jídla
