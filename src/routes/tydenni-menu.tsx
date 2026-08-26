@@ -32,15 +32,15 @@ export const Route = createFileRoute("/tydenni-menu")({
 });
 
 function WeeklyMenuPage() {
-  const { groups } = useNamedGroups("tydenni", WEEKLY_DAYS);
+  const { groups } = useWeeklyDayGroups(WEEKLY_DAYS);
   const days =
     groups.length > 0
       ? groups.map((g) => ({
-          day: g.title,
-          soup: g.items[0]!,
-          mains: g.items.slice(1),
+          day: g.day,
+          soups: g.soups,
+          mains: g.mains,
         }))
-      : WEEKLY_MENU;
+      : WEEKLY_MENU.map((d) => ({ day: d.day, soups: [d.soup], mains: d.mains }));
 
   return (
     <>
