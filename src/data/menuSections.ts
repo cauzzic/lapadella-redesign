@@ -61,6 +61,30 @@ export const WEEKLY_DAYS: { id: string; title: string }[] = [
   { id: "pa", title: "Pátek" },
 ];
 
+/**
+ * Části dne v týdenním menu. V databázi se ukládá do `podskupina` jako
+ * `den:cast` (např. "po:polevka"). Starší záznamy mají jen `den` – tam se
+ * první položka podle `poradi` chová jako polévka a zbytek jako hlavní jídla.
+ */
+export const WEEKLY_COURSES: { id: string; title: string }[] = [
+  { id: "polevka", title: "Polévka" },
+  { id: "hlavni", title: "Hlavní jídlo" },
+];
+
+export function buildWeeklySubgroup(day: string, course: string): string {
+  if (!day) return "";
+  return course ? `${day}:${course}` : day;
+}
+
+export function parseWeeklySubgroup(value: string | null): {
+  day: string;
+  course: string;
+} {
+  if (!value) return { day: "", course: "" };
+  const [day, course] = value.split(":");
+  return { day: day ?? "", course: course ?? "" };
+}
+
 /** Podkategorie speciálního menu – hodnota sloupce `podskupina` u sekce "specialni". */
 export const SPECIAL_SUBGROUPS: { id: string; title: string }[] = [
   { id: "sefkuchar", title: "Speciality šéfkuchaře" },
