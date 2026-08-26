@@ -16,6 +16,9 @@ import {
   DRINK_SECTIONS,
   WEEKLY_DAYS,
   SPECIAL_SUBGROUPS,
+  WEEKLY_COURSES,
+  buildWeeklySubgroup,
+  parseWeeklySubgroup,
 } from "@/data/menuSections";
 import { ALLERGENS } from "@/data/allergens";
 import { Loader2, LogOut, Pencil, Plus, Trash2, X } from "lucide-react";
@@ -82,6 +85,7 @@ type FormState = {
   aktivni: boolean;
   poradi: string;
   podskupina: string;
+  cast: string;
   alergeny: number[];
 };
 
@@ -95,6 +99,7 @@ const emptyForm: FormState = {
   aktivni: true,
   poradi: "0",
   podskupina: "",
+  cast: "",
   alergeny: [],
 };
 
@@ -440,6 +445,10 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
       toast.error("Sekce a název jsou povinné.");
       return;
     }
+    if (form.sekce.trim() === "tydenni" && (!form.podskupina || !form.cast)) {
+      toast.error("U týdenního menu vyber den i typ položky.");
+      return;
+    }
     setSaving(true);
     const payload = {
       sekce: form.sekce.trim(),
@@ -450,9 +459,11 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
       aktivni: form.aktivni,
       poradi: Number(form.poradi) || 0,
       podskupina:
-        subgroupOptions(form.sekce.trim()).length > 0 && form.podskupina
-          ? form.podskupina
-          : null,
+        form.sekce.trim() === "tydenni"
+          ? buildWeeklySubgroup(form.podskupina, form.cast) || null
+          : subgroupOptions(form.sekce.trim()).length > 0 && form.podskupina
+            ? form.podskupina
+            : null,
       alergeny: [...form.alergeny].sort((a, b) => a - b),
     };
     const { error } = form.id
@@ -588,6 +599,24 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
                 </select>
               </div>
             )}
+            {form.sekce.trim() === "tydenni" && (
+              <div className="space-y-2 sm:col-span-2">
+                <Label htmlFor="cast">Typ položky</Label>
+                <select
+                  id="cast"
+                  className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+                  value={form.cast}
+                  onChange={(e) => setForm({ ...form, cast: e.target.value })}
+                >
+                  <option value="">— nevybráno —</option>
+                  {WEEKLY_COURSES.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
             <div className="space-y-2 sm:col-span-2">
               <Label>Alergeny</Label>
               <div className="flex flex-wrap gap-2">
@@ -661,7 +690,12 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setForm({ ...emptyForm, sekce: "tydenni", podskupina: WEEKLY_DAYS[0]!.id })}
+            onClick={() => setForm({
+                ...emptyForm,
+                sekce: "tydenni",
+                podskupina: WEEKLY_DAYS[0]!.id,
+                cast: WEEKLY_COURSES[1]!.id,
+              })}
           >
             <Plus className="mr-2 h-4 w-4" /> Položka do týdenního
           </Button>
@@ -750,7 +784,14 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
                             obrazek: row.obrazek ?? "",
                             aktivni: row.aktivni,
                             poradi: String(row.poradi),
-                            podskupina: row.podskupina ?? "",
+                            podskupina:
+                              row.sekce === "tydenni"
+                                ? parseWeeklySubgroup(row.podskupina).day
+                                : (row.podskupina ?? ""),
+                            cast:
+                              row.sekce === "tydenni"
+                                ? parseWeeklySubgroup(row.podskupina).course
+                                : "",
                             alergeny: (row.alergeny ?? []).map(Number),
                           })
                         }
