@@ -1,4 +1,4 @@
-export type Dish = { name: string; price: string; desc?: string };
+export type Dish = { name: string; price: string; desc?: string; allergens?: number[] };
 export type MenuSection = { id: string; title: string; image?: string; items: Dish[] };
 
 export const IMG = {
