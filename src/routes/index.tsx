@@ -38,8 +38,8 @@ function Index() {
     <>
       {/* HERO */}
       <section className="relative flex min-h-screen items-center overflow-hidden">
-        <img
-          src={IMG.chef}
+<img
+          src={mainHeroImg}
           alt="Italský kuchař připravuje neapolskou pizzu v La Padella"
           className="absolute inset-0 size-full object-cover"
         />
