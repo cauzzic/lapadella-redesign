@@ -377,10 +377,10 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
     void load();
   }, [load]);
 
-  const sections = useMemo(
-    () => Array.from(new Set([...rows.map((r) => r.sekce), ...KNOWN_SECTION_IDS])).sort(),
-    [rows],
-  );
+  const sections = useMemo(() => {
+    const all = Array.from(new Set([...KNOWN_SECTION_IDS, ...rows.map((r) => r.sekce)]));
+    return all.sort((a, b) => sectionRank(a) - sectionRank(b));
+  }, [rows]);
 
   const visible = useMemo(() => {
     let result = rows;
@@ -400,8 +400,11 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
         (r) => r.nazev.toLowerCase().includes(q) || r.sekce.toLowerCase().includes(q),
       );
     }
-    return result;
+    return [...result].sort(
+      (a, b) => sectionRank(a.sekce) - sectionRank(b.sekce) || (a.poradi ?? 0) - (b.poradi ?? 0),
+    );
   }, [rows, sectionFilter, filter]);
+
 
   async function save() {
     if (!form) return;
