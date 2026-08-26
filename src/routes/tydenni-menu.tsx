@@ -69,7 +69,7 @@ function WeeklyMenuPage() {
               <div className="mt-2 flex gap-6">
                 <p className="text-sm leading-relaxed text-muted-foreground">
                   {d.soup.name}
-                  <AllergenIcons numbers={"allergens" in d.soup ? d.soup.allergens : undefined} />
+                  <AllergenIcons numbers={(d.soup as { allergens?: number[] }).allergens} />
                 </p>
                 <span className="ml-auto shrink-0 font-display text-lg text-primary">
                   {d.soup.price}
@@ -85,7 +85,7 @@ function WeeklyMenuPage() {
                     <div className="min-w-0">
                       <p className="text-sm font-semibold tracking-[0.06em] uppercase">
                         {m.name}
-                        <AllergenIcons numbers={"allergens" in m ? m.allergens : undefined} />
+                        <AllergenIcons numbers={(m as { allergens?: number[] }).allergens} />
                       </p>
                       {m.desc && (
                         <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{m.desc}</p>

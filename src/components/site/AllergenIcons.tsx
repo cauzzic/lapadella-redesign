@@ -1,7 +1,7 @@
 import { ALLERGEN_BY_NUMBER } from "@/data/allergens";
 
 /** Malé ikonky alergenů zobrazené bezprostředně za názvem jídla. */
-export function AllergenIcons({ numbers }: { numbers?: number[] | null }) {
+export function AllergenIcons({ numbers }: { numbers?: number[] | null | undefined }) {
   const list = (numbers ?? [])
     .map((n) => ALLERGEN_BY_NUMBER.get(Number(n)))
     .filter((a): a is NonNullable<typeof a> => Boolean(a));
