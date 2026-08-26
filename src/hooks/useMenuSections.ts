@@ -11,6 +11,7 @@ type Row = {
   cena: number | string | null;
   obrazek: string | null;
   poradi: number | null;
+  alergeny: number[] | null;
 };
 
 function formatPrice(cena: Row["cena"]): string {
@@ -27,7 +28,7 @@ function formatPrice(cena: Row["cena"]): string {
 async function fetchMenuItems(sectionIds: string[]): Promise<Row[]> {
   const { data, error } = await supabase
     .from("menu_polozky")
-    .select("id, sekce, nazev, popis, cena, obrazek, poradi")
+    .select("id, sekce, nazev, popis, cena, obrazek, poradi, alergeny")
     .eq("aktivni", true)
     .in("sekce", sectionIds)
     .order("poradi", { ascending: true });
@@ -55,6 +56,9 @@ export function useMenuSections(meta: SectionMeta[]) {
           name: r.nazev,
           price: formatPrice(r.cena),
           ...(r.popis ? { desc: r.popis } : {}),
+          ...(r.alergeny && r.alergeny.length > 0
+            ? { allergens: r.alergeny.map(Number) }
+            : {}),
         }));
       return {
         id: m.id,
