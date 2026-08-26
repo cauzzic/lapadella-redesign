@@ -4,7 +4,8 @@ import { MenuList } from "@/components/site/MenuList";
 import { AllergenInfo } from "@/components/site/AllergenInfo";
 import { CONTACT, IMG } from "@/data/menu";
 import { SPECIAL_MENU, SPECIAL_NOTE } from "@/data/special";
-import { useSectionGroups } from "@/hooks/useSectionGroups";
+import { useNamedGroups } from "@/hooks/useSectionGroups";
+import { SPECIAL_SUBGROUPS } from "@/data/menuSections";
 import { Phone } from "lucide-react";
 
 export const Route = createFileRoute("/specialni-menu")({
@@ -31,22 +32,19 @@ export const Route = createFileRoute("/specialni-menu")({
 });
 
 function SpecialMenuPage() {
-  const { groups } = useSectionGroups("specialni");
+  const { groups } = useNamedGroups("specialni", SPECIAL_SUBGROUPS);
   const list =
     groups.length > 0
-      ? groups.map((items, i) => {
-          const meta = SPECIAL_MENU[i];
-          const perPerson = meta?.id === "degustace";
-          return {
-            id: meta?.id ?? `specialni-${i + 1}`,
-            title: meta?.title ?? "Speciální nabídka",
-            items: items.map((it) => ({
-              name: it.name,
-              price: perPerson && it.price ? `${it.price} / os.` : it.price,
-              ...(it.desc ? { desc: it.desc } : {}),
-            })),
-          };
-        })
+      ? groups.map((g) => ({
+          id: g.id,
+          title: g.title,
+          items: g.items.map((it) => ({
+            name: it.name,
+            price: g.id === "degustace" && it.price ? `${it.price} / os.` : it.price,
+            ...(it.desc ? { desc: it.desc } : {}),
+            ...(it.allergens ? { allergens: it.allergens } : {}),
+          })),
+        }))
       : SPECIAL_MENU;
 
   return (

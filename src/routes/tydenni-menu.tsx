@@ -2,8 +2,10 @@ import { createFileRoute } from "@/lib/router-compat";
 import { PageHero } from "@/components/site/PageHero";
 import { CONTACT, HOURS, IMG } from "@/data/menu";
 import { AllergenInfo } from "@/components/site/AllergenInfo";
+import { AllergenIcons } from "@/components/site/AllergenIcons";
 import { WEEKLY_MENU, WEEKLY_NOTE } from "@/data/weekly";
-import { useSectionGroups } from "@/hooks/useSectionGroups";
+import { useNamedGroups } from "@/hooks/useSectionGroups";
+import { WEEKLY_DAYS } from "@/data/menuSections";
 import { Clock, Phone, ShoppingBag } from "lucide-react";
 
 export const Route = createFileRoute("/tydenni-menu")({
@@ -30,13 +32,13 @@ export const Route = createFileRoute("/tydenni-menu")({
 });
 
 function WeeklyMenuPage() {
-  const { groups } = useSectionGroups("tydenni");
+  const { groups } = useNamedGroups("tydenni", WEEKLY_DAYS);
   const days =
     groups.length > 0
-      ? groups.map((items, i) => ({
-          day: WEEKLY_MENU[i]?.day ?? `Den ${i + 1}`,
-          soup: items[0]!,
-          mains: items.slice(1),
+      ? groups.map((g) => ({
+          day: g.title,
+          soup: g.items[0]!,
+          mains: g.items.slice(1),
         }))
       : WEEKLY_MENU;
 
@@ -65,7 +67,10 @@ function WeeklyMenuPage() {
                 Polévka
               </p>
               <div className="mt-2 flex gap-6">
-                <p className="text-sm leading-relaxed text-muted-foreground">{d.soup.name}</p>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {d.soup.name}
+                  <AllergenIcons numbers={(d.soup as { allergens?: number[] }).allergens} />
+                </p>
                 <span className="ml-auto shrink-0 font-display text-lg text-primary">
                   {d.soup.price}
                 </span>
@@ -78,7 +83,10 @@ function WeeklyMenuPage() {
                 {d.mains.map((m) => (
                   <li key={m.name} className="flex gap-6 py-4">
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold tracking-[0.06em] uppercase">{m.name}</p>
+                      <p className="text-sm font-semibold tracking-[0.06em] uppercase">
+                        {m.name}
+                        <AllergenIcons numbers={(m as { allergens?: number[] }).allergens} />
+                      </p>
                       {m.desc && (
                         <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{m.desc}</p>
                       )}

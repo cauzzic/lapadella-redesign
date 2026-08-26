@@ -17,11 +17,13 @@ export type Database = {
       menu_polozky: {
         Row: {
           aktivni: boolean
+          alergeny: number[]
           cena: number | null
           created_at: string
           id: string
           nazev: string
           obrazek: string | null
+          podskupina: string | null
           popis: string | null
           poradi: number
           sekce: string
@@ -29,11 +31,13 @@ export type Database = {
         }
         Insert: {
           aktivni?: boolean
+          alergeny?: number[]
           cena?: number | null
           created_at?: string
           id?: string
           nazev: string
           obrazek?: string | null
+          podskupina?: string | null
           popis?: string | null
           poradi?: number
           sekce: string
@@ -41,11 +45,13 @@ export type Database = {
         }
         Update: {
           aktivni?: boolean
+          alergeny?: number[]
           cena?: number | null
           created_at?: string
           id?: string
           nazev?: string
           obrazek?: string | null
+          podskupina?: string | null
           popis?: string | null
           poradi?: number
           sekce?: string

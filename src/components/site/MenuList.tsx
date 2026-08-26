@@ -1,4 +1,5 @@
 import type { MenuSection } from "@/data/menu";
+import { AllergenIcons } from "@/components/site/AllergenIcons";
 
 export function MenuList({ sections }: { sections: MenuSection[] }) {
   return (
@@ -32,7 +33,10 @@ export function MenuList({ sections }: { sections: MenuSection[] }) {
                 {section.items.map((item) => (
                   <li key={item.name} className="flex gap-6 py-5">
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold tracking-[0.08em] uppercase">{item.name}</p>
+                      <p className="text-sm font-semibold tracking-[0.08em] uppercase">
+                        {item.name}
+                        <AllergenIcons numbers={item.allergens} />
+                      </p>
                       {item.desc && (
                         <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
                           {item.desc}
