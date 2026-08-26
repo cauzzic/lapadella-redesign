@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@/lib/router-compat";
 import { Phone, ArrowRight, ShoppingBag } from "lucide-react";
 import { CONTACT, HOURS, IMG, GALLERY } from "@/data/menu";
+import mainHeroImg from "@/assets/main-hero.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -17,9 +18,9 @@ export const Route = createFileRoute("/")({
         content: "Neapolská pizza, domácí těstoviny a italská vína v srdci Valašského Meziříčí.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: IMG.chef },
+{ property: "og:image", content: mainHeroImg },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: IMG.chef },
+      { name: "twitter:image", content: mainHeroImg },
     ],
   }),
   component: Index,
@@ -37,8 +38,8 @@ function Index() {
     <>
       {/* HERO */}
       <section className="relative flex min-h-screen items-center overflow-hidden">
-        <img
-          src={IMG.chef}
+<img
+          src={mainHeroImg}
           alt="Italský kuchař připravuje neapolskou pizzu v La Padella"
           className="absolute inset-0 size-full object-cover"
         />
