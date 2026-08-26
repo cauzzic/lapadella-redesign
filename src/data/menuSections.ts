@@ -51,3 +51,20 @@ export const KNOWN_SECTION_IDS: string[] = [
   "tydenni",
   "specialni",
 ];
+
+/** Dny týdenního menu – hodnota sloupce `podskupina` u sekce "tydenni". */
+export const WEEKLY_DAYS: { id: string; title: string }[] = [
+  { id: "po", title: "Pondělí" },
+  { id: "ut", title: "Úterý" },
+  { id: "st", title: "Středa" },
+  { id: "ct", title: "Čtvrtek" },
+  { id: "pa", title: "Pátek" },
+];
+
+/** Podkategorie speciálního menu – hodnota sloupce `podskupina` u sekce "specialni". */
+export const SPECIAL_SUBGROUPS: { id: string; title: string }[] = [
+  { id: "sefkuchar", title: "Speciality šéfkuchaře" },
+  { id: "sezonni", title: "Sezónní nabídka" },
+  { id: "degustace", title: "Degustační menu" },
+  { id: "dezerty-special", title: "Speciální dezerty" },
+];
