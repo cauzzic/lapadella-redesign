@@ -16,6 +16,14 @@ import { Loader2, LogOut, Pencil, Plus, Trash2, X } from "lucide-react";
 const FOOD_SECTION_IDS = FOOD_SECTIONS.map((s) => s.id);
 const DRINK_SECTION_IDS = DRINK_SECTIONS.map((s) => s.id);
 
+/** Pořadí sekcí v administraci = stejné jako na veřejném webu. */
+const SECTION_ORDER = KNOWN_SECTION_IDS;
+const sectionRank = (id: string) => {
+  const i = SECTION_ORDER.indexOf(id);
+  return i === -1 ? SECTION_ORDER.length : i;
+};
+
+
 const SECTION_FILTERS = [
   { id: "all", label: "Vše" },
   { id: "menu", label: "Menu" },
@@ -377,10 +385,10 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
     void load();
   }, [load]);
 
-  const sections = useMemo(
-    () => Array.from(new Set([...rows.map((r) => r.sekce), ...KNOWN_SECTION_IDS])).sort(),
-    [rows],
-  );
+  const sections = useMemo(() => {
+    const all = Array.from(new Set([...KNOWN_SECTION_IDS, ...rows.map((r) => r.sekce)]));
+    return all.sort((a, b) => sectionRank(a) - sectionRank(b));
+  }, [rows]);
 
   const visible = useMemo(() => {
     let result = rows;
@@ -400,8 +408,11 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
         (r) => r.nazev.toLowerCase().includes(q) || r.sekce.toLowerCase().includes(q),
       );
     }
-    return result;
+    return [...result].sort(
+      (a, b) => sectionRank(a.sekce) - sectionRank(b.sekce) || (a.poradi ?? 0) - (b.poradi ?? 0),
+    );
   }, [rows, sectionFilter, filter]);
+
 
   async function save() {
     if (!form) return;
