@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@/lib/router-compat";
 import { Phone, ArrowRight, ShoppingBag } from "lucide-react";
 import { CONTACT, HOURS, IMG, GALLERY } from "@/data/menu";
+import mainHeroImg from "@/assets/main-hero.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
