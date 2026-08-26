@@ -10,7 +10,14 @@ import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
-import { KNOWN_SECTION_IDS, FOOD_SECTIONS, DRINK_SECTIONS } from "@/data/menuSections";
+import {
+  KNOWN_SECTION_IDS,
+  FOOD_SECTIONS,
+  DRINK_SECTIONS,
+  WEEKLY_DAYS,
+  SPECIAL_SUBGROUPS,
+} from "@/data/menuSections";
+import { ALLERGENS } from "@/data/allergens";
 import { Loader2, LogOut, Pencil, Plus, Trash2, X } from "lucide-react";
 
 const FOOD_SECTION_IDS = FOOD_SECTIONS.map((s) => s.id);
@@ -54,7 +61,16 @@ type MenuRow = {
   obrazek: string | null;
   aktivni: boolean;
   poradi: number;
+  podskupina: string | null;
+  alergeny: number[] | null;
 };
+
+/** Nabídka podskupin podle sekce (den u týdenního, podkategorie u speciálního menu). */
+function subgroupOptions(sekce: string): { id: string; title: string }[] {
+  if (sekce === "tydenni") return WEEKLY_DAYS;
+  if (sekce === "specialni") return SPECIAL_SUBGROUPS;
+  return [];
+}
 
 type FormState = {
   id: string | null;
@@ -65,6 +81,8 @@ type FormState = {
   obrazek: string;
   aktivni: boolean;
   poradi: string;
+  podskupina: string;
+  alergeny: number[];
 };
 
 const emptyForm: FormState = {
@@ -76,6 +94,8 @@ const emptyForm: FormState = {
   obrazek: "",
   aktivni: true,
   poradi: "0",
+  podskupina: "",
+  alergeny: [],
 };
 
 function AdminPage() {
@@ -370,7 +390,7 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
     setLoading(true);
     const { data, error } = await supabase
       .from("menu_polozky")
-      .select("id, sekce, nazev, popis, cena, obrazek, aktivni, poradi")
+      .select("id, sekce, nazev, popis, cena, obrazek, aktivni, poradi, podskupina, alergeny")
       .order("sekce", { ascending: true })
       .order("poradi", { ascending: true });
     setLoading(false);
@@ -429,6 +449,11 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
       obrazek: form.obrazek.trim() ? form.obrazek.trim() : null,
       aktivni: form.aktivni,
       poradi: Number(form.poradi) || 0,
+      podskupina:
+        subgroupOptions(form.sekce.trim()).length > 0 && form.podskupina
+          ? form.podskupina
+          : null,
+      alergeny: [...form.alergeny].sort((a, b) => a - b),
     };
     const { error } = form.id
       ? await supabase.from("menu_polozky").update(payload).eq("id", form.id)
@@ -543,6 +568,59 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
                 onChange={(e) => setForm({ ...form, poradi: e.target.value })}
               />
             </div>
+            {subgroupOptions(form.sekce.trim()).length > 0 && (
+              <div className="space-y-2 sm:col-span-2">
+                <Label htmlFor="podskupina">
+                  {form.sekce.trim() === "tydenni" ? "Den" : "Podkategorie"}
+                </Label>
+                <select
+                  id="podskupina"
+                  className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+                  value={form.podskupina}
+                  onChange={(e) => setForm({ ...form, podskupina: e.target.value })}
+                >
+                  <option value="">— nevybráno —</option>
+                  {subgroupOptions(form.sekce.trim()).map((o) => (
+                    <option key={o.id} value={o.id}>
+                      {o.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+            <div className="space-y-2 sm:col-span-2">
+              <Label>Alergeny</Label>
+              <div className="flex flex-wrap gap-2">
+                {ALLERGENS.map((a) => {
+                  const Icon = a.icon;
+                  const active = form.alergeny.includes(a.n);
+                  return (
+                    <button
+                      key={a.n}
+                      type="button"
+                      title={a.cs}
+                      aria-pressed={active}
+                      onClick={() =>
+                        setForm({
+                          ...form,
+                          alergeny: active
+                            ? form.alergeny.filter((n) => n !== a.n)
+                            : [...form.alergeny, a.n],
+                        })
+                      }
+                      className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs transition-colors ${
+                        active
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : "border-input text-muted-foreground hover:border-primary"
+                      }`}
+                    >
+                      <Icon className="h-3.5 w-3.5" />
+                      {a.n} · {a.short}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
             <div className="space-y-2 sm:col-span-2">
               <Label htmlFor="obrazek">Obrázek (URL)</Label>
               <Input
@@ -583,14 +661,16 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setForm({ ...emptyForm, sekce: "tydenni" })}
+            onClick={() => setForm({ ...emptyForm, sekce: "tydenni", podskupina: WEEKLY_DAYS[0]!.id })}
           >
             <Plus className="mr-2 h-4 w-4" /> Položka do týdenního
           </Button>
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setForm({ ...emptyForm, sekce: "specialni" })}
+            onClick={() =>
+              setForm({ ...emptyForm, sekce: "specialni", podskupina: SPECIAL_SUBGROUPS[0]!.id })
+            }
           >
             <Plus className="mr-2 h-4 w-4" /> Položka do speciálního
           </Button>
@@ -670,6 +750,8 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
                             obrazek: row.obrazek ?? "",
                             aktivni: row.aktivni,
                             poradi: String(row.poradi),
+                            podskupina: row.podskupina ?? "",
+                            alergeny: (row.alergeny ?? []).map(Number),
                           })
                         }
                       >
