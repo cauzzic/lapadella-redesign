@@ -1,6 +1,7 @@
 import { createFileRoute } from "@/lib/router-compat";
 import { PageHero } from "@/components/site/PageHero";
 import { MenuList } from "@/components/site/MenuList";
+import { AllergenInfo } from "@/components/site/AllergenInfo";
 import { CONTACT, IMG } from "@/data/menu";
 import { SPECIAL_MENU, SPECIAL_NOTE } from "@/data/special";
 import { useSectionGroups } from "@/hooks/useSectionGroups";
@@ -57,6 +58,7 @@ function SpecialMenuPage() {
         text={SPECIAL_NOTE}
       />
       <MenuList sections={list} />
+      <AllergenInfo />
       <section className="bg-secondary/20 px-5 py-16 text-center md:px-8">
         <h2 className="font-display text-4xl text-foreground md:text-5xl">Rezervujte si stůl</h2>
         <p className="mx-auto mt-4 max-w-xl text-muted-foreground">

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@/lib/router-compat";
 import { PageHero } from "@/components/site/PageHero";
 import { CONTACT, HOURS, IMG } from "@/data/menu";
+import { AllergenInfo } from "@/components/site/AllergenInfo";
 import { WEEKLY_MENU, WEEKLY_NOTE } from "@/data/weekly";
 import { useSectionGroups } from "@/hooks/useSectionGroups";
 import { Clock, Phone, ShoppingBag } from "lucide-react";
@@ -115,6 +116,8 @@ function WeeklyMenuPage() {
           </aside>
         </div>
       </div>
+      <AllergenInfo />
     </>
+
   );
 }
