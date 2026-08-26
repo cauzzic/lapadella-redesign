@@ -24,18 +24,19 @@ export const FOOD_SECTIONS: SectionMeta[] = [
 ];
 
 export const DRINK_SECTIONS: SectionMeta[] = [
-  { id: "vina", title: "Rozlévaná vína" },
   { id: "aperitivy", title: "Aperitivy" },
-  { id: "michane", title: "Míchané nápoje" },
-  { id: "whiskey", title: "Whiskey" },
-  { id: "cognac", title: "Cognac & Brandy" },
-  { id: "likery", title: "Likéry" },
-  { id: "destilaty", title: "Destiláty" },
-  { id: "rumy", title: "Rumy" },
-  { id: "pivo", title: "Pivo" },
   { id: "nealko", title: "Nealkoholické nápoje" },
   { id: "teple", title: "Teplé nápoje" },
+  { id: "pivo", title: "Pivo" },
+  { id: "likery", title: "Likéry" },
+  { id: "destilaty", title: "Destiláty" },
+  { id: "cognac", title: "Cognac & Brandy" },
+  { id: "whiskey", title: "Whiskey" },
+  { id: "rumy", title: "Rumy" },
+  { id: "vina", title: "Vína" },
+  { id: "michane", title: "Cocktails" },
 ];
+
 
 /** Sekce pro Týdenní menu (databázová hodnota sekce = "tydenni"). */
 export const WEEKLY_SECTIONS: SectionMeta[] = [{ id: "tydenni", title: "Týdenní menu" }];
