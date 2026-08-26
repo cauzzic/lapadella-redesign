@@ -100,3 +100,62 @@ export function useNamedGroups(sekce: string, defs: { id: string; title: string 
 
   return { groups: named, isLoading: query.isLoading, error: query.error };
 }
+
+export type WeeklyDayGroup = {
+  id: string;
+  day: string;
+  soup?: GroupedItem;
+  soups: GroupedItem[];
+  mains: GroupedItem[];
+};
+
+/**
+ * Týdenní menu rozdělené na dny a v rámci dne na Polévku / Hlavní jídla.
+ * Podporuje nový zápis `podskupina = "po:polevka" | "po:hlavni"` i starší
+ * zápis `podskupina = "po"` (první položka dne = polévka).
+ */
+export function useWeeklyDayGroups(days: { id: string; title: string }[]) {
+  const query = useRows("tydenni");
+  const rows = query.data ?? [];
+
+  const groups: WeeklyDayGroup[] = days
+    .map((def, i) => {
+      const dayRows = rows
+        .filter((r) => {
+          if (r.podskupina) return r.podskupina.split(":")[0] === def.id;
+          return Math.floor((r.poradi ?? 0) / 100) === i;
+        })
+        .sort((a, b) => (a.poradi ?? 0) - (b.poradi ?? 0));
+
+      const soups: GroupedItem[] = [];
+      const mains: GroupedItem[] = [];
+      let legacySoupTaken = false;
+
+      for (const r of dayRows) {
+        const course = r.podskupina?.includes(":")
+          ? r.podskupina.split(":")[1]
+          : undefined;
+        if (course === "polevka") {
+          soups.push(toItem(r));
+        } else if (course === "hlavni") {
+          mains.push(toItem(r));
+        } else if (!legacySoupTaken) {
+          legacySoupTaken = true;
+          soups.push(toItem(r));
+        } else {
+          mains.push(toItem(r));
+        }
+      }
+
+      return {
+        id: def.id,
+        day: def.title,
+        ...(soups[0] ? { soup: soups[0] } : {}),
+        soups,
+        mains,
+      };
+    })
+    .filter((g) => g.soups.length > 0 || g.mains.length > 0);
+
+  return { groups, isLoading: query.isLoading, error: query.error };
+}
