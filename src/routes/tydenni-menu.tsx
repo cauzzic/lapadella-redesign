@@ -33,6 +33,7 @@ export const Route = createFileRoute("/tydenni-menu")({
 });
 
 function WeeklyMenuPage() {
+  const { value: period } = useMenuSetting(SETTING_WEEKLY_PERIOD);
   const { groups } = useWeeklyDayGroups(WEEKLY_DAYS);
   const days =
     groups.length > 0
