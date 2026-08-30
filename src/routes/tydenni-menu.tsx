@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@/lib/router-compat";
+import { ReserveLink } from "@/components/site/ReserveLink";
 import { PageHero } from "@/components/site/PageHero";
 import { CONTACT, HOURS, IMG } from "@/data/menu";
 import { AllergenInfo } from "@/components/site/AllergenInfo";
@@ -123,9 +124,7 @@ function WeeklyMenuPage() {
               <a href={CONTACT.orderUrl} target="_blank" rel="noreferrer" className="btn-primary">
                 <ShoppingBag className="size-4" /> Objednat online
               </a>
-              <Link to="/#rezervace" className="btn-ghost text-foreground">
-                Rezervovat stůl
-              </Link>
+              <ReserveLink className="btn-ghost text-foreground" />
             </div>
           </aside>
         </div>

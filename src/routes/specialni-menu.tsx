@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@/lib/router-compat";
+import { ReserveLink } from "@/components/site/ReserveLink";
 import { PageHero } from "@/components/site/PageHero";
 import { MenuList } from "@/components/site/MenuList";
 import { AllergenInfo } from "@/components/site/AllergenInfo";
@@ -62,9 +63,7 @@ function SpecialMenuPage() {
         <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
           Degustační menu doporučujeme rezervovat alespoň den předem.
         </p>
-        <Link to="/#rezervace" className="btn-primary mt-8">
-          Rezervovat stůl
-        </Link>
+        <ReserveLink className="btn-primary mt-8" />
       </section>
     </>
   );

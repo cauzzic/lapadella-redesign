@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@/lib/router-compat";
 import { ArrowRight, ShoppingBag } from "lucide-react";
 import { CONTACT, HOURS, IMG, GALLERY } from "@/data/menu";
+import { ReserveLink } from "@/components/site/ReserveLink";
 import mainHeroImg from "@/assets/main-hero.png";
 
 export const Route = createFileRoute("/")({
@@ -57,9 +58,7 @@ function Index() {
             <a href={CONTACT.orderUrl} target="_blank" rel="noreferrer" className="btn-primary">
               <ShoppingBag className="size-4" /> Objednat online
             </a>
-            <Link to="/#rezervace" className="btn-ghost text-cream">
-              Rezervovat stůl
-            </Link>
+            <ReserveLink className="btn-ghost text-cream" />
             <Link to="/menu" className="btn-ghost text-cream">
               Naše menu <ArrowRight className="size-4" />
             </Link>
@@ -158,9 +157,7 @@ function Index() {
               <Link to="/menu" className="btn-ghost text-foreground">
                 Podívat se na menu
               </Link>
-              <Link to="/#rezervace" className="btn-ghost text-foreground">
-                Rezervovat stůl
-              </Link>
+              <ReserveLink className="btn-ghost text-foreground" />
             </div>
           </div>
           <div className="order-1 grid grid-cols-2 gap-4 lg:order-2">
@@ -180,7 +177,7 @@ function Index() {
       </section>
 
       {/* REZERVACE */}
-      <section id="rezervace" className="bg-sage-deep section-pad">
+      <section id="rezervace" className="scroll-mt-24 bg-sage-deep section-pad">
         <div className="mx-auto max-w-3xl px-5 text-center text-cream md:px-8">
           <p className="eyebrow text-clay">Rezervace</p>
           <h2 className="mt-3 text-4xl md:text-5xl">Rezervujte si stůl</h2>
