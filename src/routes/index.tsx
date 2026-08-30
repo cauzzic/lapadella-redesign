@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@/lib/router-compat";
 import { ArrowRight, ShoppingBag } from "lucide-react";
 import { CONTACT, HOURS, IMG, GALLERY } from "@/data/menu";
 import { ReserveLink } from "@/components/site/ReserveLink";
+import { DishWidget } from "@/components/site/DishWidget";
 import mainHeroImg from "@/assets/main-hero.png";
 
 export const Route = createFileRoute("/")({
