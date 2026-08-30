@@ -63,7 +63,7 @@ function SpecialMenuPage() {
           Degustační menu doporučujeme rezervovat alespoň den předem.
         </p>
         <Link to="/#rezervace" className="btn-primary mt-8">
-          <Phone className="size-4" /> Rezervovat stůl
+          Rezervovat stůl
         </Link>
       </section>
     </>

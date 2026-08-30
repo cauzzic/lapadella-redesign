@@ -124,7 +124,7 @@ function WeeklyMenuPage() {
                 <ShoppingBag className="size-4" /> Objednat online
               </a>
               <Link to="/#rezervace" className="btn-ghost text-foreground">
-                <Phone className="size-4" /> Rezervovat stůl
+                Rezervovat stůl
               </Link>
             </div>
           </aside>
