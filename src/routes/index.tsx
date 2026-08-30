@@ -183,14 +183,13 @@ function Index() {
           <h2 className="mt-3 text-4xl md:text-5xl">Rezervujte si stůl</h2>
           <p className="mx-auto mt-6 max-w-xl text-cream/80">
             Chcete si vychutnat autentickou italskou kuchyni v příjemném prostředí? Rezervujte si
-            stůl snadno online. Brzy pro vás spustíme pohodlný online rezervační systém.
+            stůl snadno online.
           </p>
-          {/* Sem bude vložen rezervační widget DISH */}
           <div
             id="dish-widget"
-            className="mx-auto mt-10 flex min-h-[260px] w-full max-w-2xl items-center justify-center rounded-sm border border-dashed border-cream/25 bg-cream/5 px-6 py-10 text-sm tracking-wide text-cream/60"
+            className="mx-auto mt-10 w-full max-w-2xl overflow-hidden rounded-sm bg-cream px-3 py-4 text-left text-foreground sm:px-6 sm:py-6"
           >
-            Online rezervační systém bude brzy dostupný.
+            <DishWidget className="w-full" />
           </div>
         </div>
       </section>
