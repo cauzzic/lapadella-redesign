@@ -7,6 +7,7 @@ import { IMG } from "@/data/menu";
 import { SPECIAL_MENU, SPECIAL_NOTE } from "@/data/special";
 import { useNamedGroups } from "@/hooks/useSectionGroups";
 import { SPECIAL_SUBGROUPS } from "@/data/menuSections";
+import { useMenuSetting, SETTING_SPECIAL_PERIOD } from "@/hooks/useMenuSetting";
 
 
 export const Route = createFileRoute("/specialni-menu")({
