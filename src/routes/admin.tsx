@@ -736,6 +736,22 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
         )}
       </div>
 
+      {(sectionFilter === "all" || sectionFilter === "tydenni") && (
+        <MenuPeriodEditor
+          settingKey={SETTING_WEEKLY_PERIOD}
+          title="Období týdenního menu"
+          placeholder="PONDĚLÍ 31.08.2026 - PÁTEK 04.09.2026"
+        />
+      )}
+      {(sectionFilter === "all" || sectionFilter === "specialni") && (
+        <MenuPeriodEditor
+          settingKey={SETTING_SPECIAL_PERIOD}
+          title="Období speciálního menu"
+          placeholder="PLATÍ OD 01.09.2026 - DO 30.09.2026"
+        />
+      )}
+
+
       {loading ? (
         <CenteredSpinner />
       ) : (
