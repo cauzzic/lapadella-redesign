@@ -65,11 +65,18 @@ function ScrollBehavior() {
 
   useEffect(() => {
     if (hash) {
-      const el = document.getElementById(hash.slice(1));
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-        return;
-      }
+      const id = hash.slice(1);
+      let tries = 0;
+      const tryScroll = () => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+          return;
+        }
+        if (tries++ < 20) timer = window.setTimeout(tryScroll, 50);
+      };
+      let timer = window.setTimeout(tryScroll, 0);
+      return () => window.clearTimeout(timer);
     }
     window.scrollTo({ top: 0 });
   }, [pathname, hash]);
