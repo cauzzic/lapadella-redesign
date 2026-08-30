@@ -1,7 +1,7 @@
 import { Link } from "@/lib/router-compat";
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Menu, X, Phone, ShoppingBag, ChevronDown } from "lucide-react";
+import { Menu, X, ShoppingBag, ChevronDown } from "lucide-react";
 import { CONTACT } from "@/data/menu";
 
 const menuLinks = [
@@ -133,13 +133,12 @@ export function SiteHeader() {
               {l.label}
             </Link>
           ))}
-          <a
-            href={CONTACT.phoneHref}
+          <Link
+            to="/#rezervace"
             className={`btn-ghost ${scrolled ? "text-foreground" : "text-cream"}`}
           >
-            <Phone className="size-4" />
-            Rezervace
-          </a>
+            Rezervovat stůl
+          </Link>
           <a href={CONTACT.orderUrl} target="_blank" rel="noreferrer" className="btn-primary">
             <ShoppingBag className="size-4" />
             Objednat
@@ -208,9 +207,13 @@ export function SiteHeader() {
             >
               <ShoppingBag className="size-4" /> Objednat online
             </a>
-            <a href={CONTACT.phoneHref} className="btn-ghost self-start text-foreground">
-              <Phone className="size-4" /> {CONTACT.phone}
-            </a>
+            <Link
+              to="/#rezervace"
+              onClick={() => setOpen(false)}
+              className="btn-ghost self-start text-foreground"
+            >
+              Rezervovat stůl
+            </Link>
           </nav>
         </div>
       )}

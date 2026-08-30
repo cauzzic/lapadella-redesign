@@ -57,9 +57,9 @@ function Index() {
             <a href={CONTACT.orderUrl} target="_blank" rel="noreferrer" className="btn-primary">
               <ShoppingBag className="size-4" /> Objednat online
             </a>
-            <a href={CONTACT.phoneHref} className="btn-ghost text-cream">
+            <Link to="/#rezervace" className="btn-ghost text-cream">
               <Phone className="size-4" /> Rezervovat stůl
-            </a>
+            </Link>
             <Link to="/menu" className="btn-ghost text-cream">
               Naše menu <ArrowRight className="size-4" />
             </Link>
@@ -158,9 +158,9 @@ function Index() {
               <Link to="/menu" className="btn-ghost text-foreground">
                 Podívat se na menu
               </Link>
-              <a href={CONTACT.phoneHref} className="btn-ghost text-foreground">
-                {CONTACT.phone}
-              </a>
+              <Link to="/#rezervace" className="btn-ghost text-foreground">
+                <Phone className="size-4" /> Rezervovat stůl
+              </Link>
             </div>
           </div>
           <div className="order-1 grid grid-cols-2 gap-4 lg:order-2">
@@ -175,6 +175,25 @@ function Index() {
                 }`}
               />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* REZERVACE */}
+      <section id="rezervace" className="bg-sage-deep section-pad">
+        <div className="mx-auto max-w-3xl px-5 text-center text-cream md:px-8">
+          <p className="eyebrow text-clay">Rezervace</p>
+          <h2 className="mt-3 text-4xl md:text-5xl">Rezervujte si stůl</h2>
+          <p className="mx-auto mt-6 max-w-xl text-cream/80">
+            Chcete si vychutnat autentickou italskou kuchyni v příjemném prostředí? Rezervujte si
+            stůl snadno online. Brzy pro vás spustíme pohodlný online rezervační systém.
+          </p>
+          {/* Sem bude vložen rezervační widget DISH */}
+          <div
+            id="dish-widget"
+            className="mx-auto mt-10 flex min-h-[260px] w-full max-w-2xl items-center justify-center rounded-sm border border-dashed border-cream/25 bg-cream/5 px-6 py-10 text-sm tracking-wide text-cream/60"
+          >
+            Online rezervační systém bude brzy dostupný.
           </div>
         </div>
       </section>

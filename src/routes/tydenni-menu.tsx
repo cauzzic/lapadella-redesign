@@ -1,4 +1,4 @@
-import { createFileRoute } from "@/lib/router-compat";
+import { createFileRoute, Link } from "@/lib/router-compat";
 import { PageHero } from "@/components/site/PageHero";
 import { CONTACT, HOURS, IMG } from "@/data/menu";
 import { AllergenInfo } from "@/components/site/AllergenInfo";
@@ -123,9 +123,9 @@ function WeeklyMenuPage() {
               <a href={CONTACT.orderUrl} target="_blank" rel="noreferrer" className="btn-primary">
                 <ShoppingBag className="size-4" /> Objednat online
               </a>
-              <a href={CONTACT.phoneHref} className="btn-ghost text-foreground">
-                <Phone className="size-4" /> {CONTACT.phone}
-              </a>
+              <Link to="/#rezervace" className="btn-ghost text-foreground">
+                <Phone className="size-4" /> Rezervovat stůl
+              </Link>
             </div>
           </aside>
         </div>

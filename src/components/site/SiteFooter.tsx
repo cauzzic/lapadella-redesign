@@ -1,5 +1,5 @@
 import { Link } from "@/lib/router-compat";
-import { MapPin, Phone, Mail, Clock, Instagram, Facebook } from "lucide-react";
+import { MapPin, Mail, Clock, Instagram, Facebook } from "lucide-react";
 import { CONTACT, HOURS } from "@/data/menu";
 
 export function SiteFooter() {
@@ -25,12 +25,6 @@ export function SiteFooter() {
               <br />
               {CONTACT.city}
             </span>
-          </p>
-          <p className="flex items-center gap-3">
-            <Phone className="size-4 shrink-0 text-clay" />
-            <a href={CONTACT.phoneHref} className="hover:text-clay">
-              {CONTACT.phone}
-            </a>
           </p>
           <p className="flex items-center gap-3">
             <Mail className="size-4 shrink-0 text-clay" />
