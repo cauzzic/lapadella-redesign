@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Menu, X, ShoppingBag, ChevronDown } from "lucide-react";
 import { CONTACT } from "@/data/menu";
+import { ReserveLink } from "@/components/site/ReserveLink";
 
 const menuLinks = [
   { to: "/menu", label: "Menu" },
@@ -133,12 +134,7 @@ export function SiteHeader() {
               {l.label}
             </Link>
           ))}
-          <Link
-            to="/#rezervace"
-            className={`btn-ghost ${scrolled ? "text-foreground" : "text-cream"}`}
-          >
-            Rezervovat stůl
-          </Link>
+          <ReserveLink className={`btn-ghost ${scrolled ? "text-foreground" : "text-cream"}`} />
           <a href={CONTACT.orderUrl} target="_blank" rel="noreferrer" className="btn-primary">
             <ShoppingBag className="size-4" />
             Objednat
@@ -207,13 +203,10 @@ export function SiteHeader() {
             >
               <ShoppingBag className="size-4" /> Objednat online
             </a>
-            <Link
-              to="/#rezervace"
+            <ReserveLink
               onClick={() => setOpen(false)}
               className="btn-ghost self-start text-foreground"
-            >
-              Rezervovat stůl
-            </Link>
+            />
           </nav>
         </div>
       )}
