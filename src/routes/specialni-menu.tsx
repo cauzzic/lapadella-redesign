@@ -33,6 +33,7 @@ export const Route = createFileRoute("/specialni-menu")({
 });
 
 function SpecialMenuPage() {
+  const { value: period } = useMenuSetting(SETTING_SPECIAL_PERIOD);
   const { groups } = useNamedGroups("specialni", SPECIAL_SUBGROUPS);
   const list =
     groups.length > 0
