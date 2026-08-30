@@ -21,6 +21,8 @@ import {
   parseWeeklySubgroup,
 } from "@/data/menuSections";
 import { ALLERGENS } from "@/data/allergens";
+import { MenuPeriodEditor } from "@/components/site/MenuPeriodEditor";
+import { SETTING_WEEKLY_PERIOD, SETTING_SPECIAL_PERIOD } from "@/hooks/useMenuSetting";
 import { Loader2, LogOut, Pencil, Plus, Trash2, X } from "lucide-react";
 
 const FOOD_SECTION_IDS = FOOD_SECTIONS.map((s) => s.id);
