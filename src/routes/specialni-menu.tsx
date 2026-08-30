@@ -1,8 +1,8 @@
-import { createFileRoute } from "@/lib/router-compat";
+import { createFileRoute, Link } from "@/lib/router-compat";
 import { PageHero } from "@/components/site/PageHero";
 import { MenuList } from "@/components/site/MenuList";
 import { AllergenInfo } from "@/components/site/AllergenInfo";
-import { CONTACT, IMG } from "@/data/menu";
+import { IMG } from "@/data/menu";
 import { SPECIAL_MENU, SPECIAL_NOTE } from "@/data/special";
 import { useNamedGroups } from "@/hooks/useSectionGroups";
 import { SPECIAL_SUBGROUPS } from "@/data/menuSections";
@@ -62,9 +62,9 @@ function SpecialMenuPage() {
         <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
           Degustační menu doporučujeme rezervovat alespoň den předem.
         </p>
-        <a href={CONTACT.phoneHref} className="btn-primary mt-8">
-          <Phone className="size-4" /> {CONTACT.phone}
-        </a>
+        <Link to="/#rezervace" className="btn-primary mt-8">
+          <Phone className="size-4" /> Rezervovat stůl
+        </Link>
       </section>
     </>
   );
