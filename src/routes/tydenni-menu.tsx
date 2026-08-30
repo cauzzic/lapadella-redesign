@@ -53,7 +53,13 @@ function WeeklyMenuPage() {
       />
 
       <div className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
+        {period.trim() !== "" && (
+          <p className="mb-10 text-center text-sm font-semibold tracking-[0.2em] uppercase text-primary">
+            {period}
+          </p>
+        )}
         <div className="grid gap-6 lg:grid-cols-2">
+
           {days.map((d) => (
             <article
               key={d.day}
