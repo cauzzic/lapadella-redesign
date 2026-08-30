@@ -7,6 +7,7 @@ import { AllergenIcons } from "@/components/site/AllergenIcons";
 import { WEEKLY_MENU, WEEKLY_NOTE } from "@/data/weekly";
 import { useWeeklyDayGroups } from "@/hooks/useSectionGroups";
 import { WEEKLY_DAYS } from "@/data/menuSections";
+import { useMenuSetting, SETTING_WEEKLY_PERIOD } from "@/hooks/useMenuSetting";
 import { Clock, ShoppingBag } from "lucide-react";
 
 export const Route = createFileRoute("/tydenni-menu")({
