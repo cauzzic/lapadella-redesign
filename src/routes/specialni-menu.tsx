@@ -58,6 +58,11 @@ function SpecialMenuPage() {
         image={IMG.food4}
         text={SPECIAL_NOTE}
       />
+      {period.trim() !== "" && (
+        <p className="mx-auto max-w-7xl px-5 pt-12 text-center text-sm font-semibold tracking-[0.2em] uppercase text-primary md:px-8">
+          {period}
+        </p>
+      )}
       <MenuList sections={list} />
       <AllergenInfo />
       <section className="bg-secondary/20 px-5 py-16 text-center md:px-8">
