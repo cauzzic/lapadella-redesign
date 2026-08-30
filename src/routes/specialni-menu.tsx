@@ -6,7 +6,7 @@ import { IMG } from "@/data/menu";
 import { SPECIAL_MENU, SPECIAL_NOTE } from "@/data/special";
 import { useNamedGroups } from "@/hooks/useSectionGroups";
 import { SPECIAL_SUBGROUPS } from "@/data/menuSections";
-import { Phone } from "lucide-react";
+
 
 export const Route = createFileRoute("/specialni-menu")({
   head: () => ({
