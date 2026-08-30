@@ -27,12 +27,6 @@ export function SiteFooter() {
             </span>
           </p>
           <p className="flex items-center gap-3">
-            <Phone className="size-4 shrink-0 text-clay" />
-            <a href={CONTACT.phoneHref} className="hover:text-clay">
-              {CONTACT.phone}
-            </a>
-          </p>
-          <p className="flex items-center gap-3">
             <Mail className="size-4 shrink-0 text-clay" />
             <a href={`mailto:${CONTACT.email}`} className="hover:text-clay">
               {CONTACT.email}
