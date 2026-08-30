@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@/lib/router-compat";
-import { Phone, ArrowRight, ShoppingBag } from "lucide-react";
+import { ArrowRight, ShoppingBag } from "lucide-react";
 import { CONTACT, HOURS, IMG, GALLERY } from "@/data/menu";
 import mainHeroImg from "@/assets/main-hero.png";
 
@@ -58,7 +58,7 @@ function Index() {
               <ShoppingBag className="size-4" /> Objednat online
             </a>
             <Link to="/#rezervace" className="btn-ghost text-cream">
-              <Phone className="size-4" /> Rezervovat stůl
+              Rezervovat stůl
             </Link>
             <Link to="/menu" className="btn-ghost text-cream">
               Naše menu <ArrowRight className="size-4" />
@@ -159,7 +159,7 @@ function Index() {
                 Podívat se na menu
               </Link>
               <Link to="/#rezervace" className="btn-ghost text-foreground">
-                <Phone className="size-4" /> Rezervovat stůl
+                Rezervovat stůl
               </Link>
             </div>
           </div>

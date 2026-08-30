@@ -6,7 +6,7 @@ import { AllergenIcons } from "@/components/site/AllergenIcons";
 import { WEEKLY_MENU, WEEKLY_NOTE } from "@/data/weekly";
 import { useWeeklyDayGroups } from "@/hooks/useSectionGroups";
 import { WEEKLY_DAYS } from "@/data/menuSections";
-import { Clock, Phone, ShoppingBag } from "lucide-react";
+import { Clock, ShoppingBag } from "lucide-react";
 
 export const Route = createFileRoute("/tydenni-menu")({
   head: () => ({
@@ -124,7 +124,7 @@ function WeeklyMenuPage() {
                 <ShoppingBag className="size-4" /> Objednat online
               </a>
               <Link to="/#rezervace" className="btn-ghost text-foreground">
-                <Phone className="size-4" /> Rezervovat stůl
+                Rezervovat stůl
               </Link>
             </div>
           </aside>
