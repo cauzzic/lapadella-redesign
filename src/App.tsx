@@ -79,6 +79,7 @@ function ScrollBehavior() {
       return () => window.clearTimeout(timer);
     }
     window.scrollTo({ top: 0 });
+    return undefined;
   }, [pathname, hash]);
 
   return null;

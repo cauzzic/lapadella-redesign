@@ -12,7 +12,7 @@ export function scrollToReservation() {
 
 /** Link na sekci Rezervace – funguje i při opakovaném kliknutí na stejné stránce. */
 export function ReserveLink({
-  className,
+  className = "",
   children,
   onClick,
 }: {
