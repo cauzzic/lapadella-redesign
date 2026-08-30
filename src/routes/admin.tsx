@@ -21,6 +21,8 @@ import {
   parseWeeklySubgroup,
 } from "@/data/menuSections";
 import { ALLERGENS } from "@/data/allergens";
+import { MenuPeriodEditor } from "@/components/site/MenuPeriodEditor";
+import { SETTING_WEEKLY_PERIOD, SETTING_SPECIAL_PERIOD } from "@/hooks/useMenuSetting";
 import { Loader2, LogOut, Pencil, Plus, Trash2, X } from "lucide-react";
 
 const FOOD_SECTION_IDS = FOOD_SECTIONS.map((s) => s.id);
@@ -735,6 +737,22 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
           </Button>
         )}
       </div>
+
+      {(sectionFilter === "all" || sectionFilter === "tydenni") && (
+        <MenuPeriodEditor
+          settingKey={SETTING_WEEKLY_PERIOD}
+          title="Období týdenního menu"
+          placeholder="PONDĚLÍ 31.08.2026 - PÁTEK 04.09.2026"
+        />
+      )}
+      {(sectionFilter === "all" || sectionFilter === "specialni") && (
+        <MenuPeriodEditor
+          settingKey={SETTING_SPECIAL_PERIOD}
+          title="Období speciálního menu"
+          placeholder="PLATÍ OD 01.09.2026 - DO 30.09.2026"
+        />
+      )}
+
 
       {loading ? (
         <CenteredSpinner />

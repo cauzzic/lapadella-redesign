@@ -7,6 +7,7 @@ import { IMG } from "@/data/menu";
 import { SPECIAL_MENU, SPECIAL_NOTE } from "@/data/special";
 import { useNamedGroups } from "@/hooks/useSectionGroups";
 import { SPECIAL_SUBGROUPS } from "@/data/menuSections";
+import { useMenuSetting, SETTING_SPECIAL_PERIOD } from "@/hooks/useMenuSetting";
 
 
 export const Route = createFileRoute("/specialni-menu")({
@@ -33,6 +34,7 @@ export const Route = createFileRoute("/specialni-menu")({
 });
 
 function SpecialMenuPage() {
+  const { value: period } = useMenuSetting(SETTING_SPECIAL_PERIOD);
   const { groups } = useNamedGroups("specialni", SPECIAL_SUBGROUPS);
   const list =
     groups.length > 0
@@ -56,6 +58,11 @@ function SpecialMenuPage() {
         image={IMG.food4}
         text={SPECIAL_NOTE}
       />
+      {period.trim() !== "" && (
+        <p className="mx-auto max-w-7xl px-5 pt-12 text-center text-sm font-semibold tracking-[0.2em] uppercase text-primary md:px-8">
+          {period}
+        </p>
+      )}
       <MenuList sections={list} />
       <AllergenInfo />
       <section className="bg-secondary/20 px-5 py-16 text-center md:px-8">

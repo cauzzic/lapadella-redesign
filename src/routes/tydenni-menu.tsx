@@ -7,6 +7,7 @@ import { AllergenIcons } from "@/components/site/AllergenIcons";
 import { WEEKLY_MENU, WEEKLY_NOTE } from "@/data/weekly";
 import { useWeeklyDayGroups } from "@/hooks/useSectionGroups";
 import { WEEKLY_DAYS } from "@/data/menuSections";
+import { useMenuSetting, SETTING_WEEKLY_PERIOD } from "@/hooks/useMenuSetting";
 import { Clock, ShoppingBag } from "lucide-react";
 
 export const Route = createFileRoute("/tydenni-menu")({
@@ -33,6 +34,7 @@ export const Route = createFileRoute("/tydenni-menu")({
 });
 
 function WeeklyMenuPage() {
+  const { value: period } = useMenuSetting(SETTING_WEEKLY_PERIOD);
   const { groups } = useWeeklyDayGroups(WEEKLY_DAYS);
   const days =
     groups.length > 0
@@ -53,7 +55,13 @@ function WeeklyMenuPage() {
       />
 
       <div className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
+        {period.trim() !== "" && (
+          <p className="mb-10 text-center text-sm font-semibold tracking-[0.2em] uppercase text-primary">
+            {period}
+          </p>
+        )}
         <div className="grid gap-6 lg:grid-cols-2">
+
           {days.map((d) => (
             <article
               key={d.day}

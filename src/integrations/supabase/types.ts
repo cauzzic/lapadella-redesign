@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      menu_nastaveni: {
+        Row: {
+          created_at: string
+          hodnota: string
+          klic: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          hodnota?: string
+          klic: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          hodnota?: string
+          klic?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       menu_polozky: {
         Row: {
           aktivni: boolean
