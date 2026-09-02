@@ -194,28 +194,6 @@ function Index() {
           </div>
         </div>
       </section>
-
-      {/* HOURS + ADDRESS */}
-      <section className="relative overflow-hidden">
-        <img src={IMG.aboutBg} alt="" aria-hidden className="absolute inset-0 size-full object-cover" />
-        <div className="absolute inset-0 bg-ink/85" />
-        <div className="relative mx-auto max-w-7xl px-5 py-20 text-cream md:px-8 md:py-28">
-          <div>
-            <p className="eyebrow text-clay">Kde nás najdete</p>
-            <h2 className="mt-3 text-4xl md:text-5xl">Adresa</h2>
-            <p className="mt-6 text-lg text-cream/80">
-              LA PADELLA Italská restaurace &amp; pizzerie
-              <br />
-              {CONTACT.street}
-              <br />
-              {CONTACT.city}
-            </p>
-            <a href={CONTACT.mapUrl} target="_blank" rel="noreferrer" className="btn-ghost mt-8 text-cream">
-              Zobrazit na mapě
-            </a>
-          </div>
-        </div>
-      </section>
     </>
   );
 }
