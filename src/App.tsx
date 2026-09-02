@@ -85,11 +85,18 @@ function ScrollBehavior() {
   return null;
 }
 
+function PublicPopup() {
+  const { pathname } = useLocation();
+  if (pathname.startsWith("/admin")) return null;
+  return <SitePopup />;
+}
+
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <ScrollBehavior />
+        <PublicPopup />
         <SiteHeader />
         <main>
           <Routes>
@@ -104,3 +111,4 @@ export default function App() {
     </QueryClientProvider>
   );
 }
+
