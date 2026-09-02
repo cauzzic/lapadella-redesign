@@ -86,10 +86,11 @@ function ScrollBehavior() {
   return null;
 }
 
-function PublicPopup() {
+/** Na veřejném webu popup, hlavička a patička – v administraci ne. */
+function PublicChrome({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
   if (pathname.startsWith("/admin")) return null;
-  return <SitePopup />;
+  return <>{children}</>;
 }
 
 export default function App() {
@@ -97,8 +98,10 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <ScrollBehavior />
-        <PublicPopup />
-        <SiteHeader />
+        <PublicChrome>
+          <SitePopup />
+          <SiteHeader />
+        </PublicChrome>
         <main>
           <Routes>
             {routes.map((route) => (
@@ -107,7 +110,9 @@ export default function App() {
             <RouterRoute path="*" element={<NotFound />} />
           </Routes>
         </main>
-        <SiteFooter />
+        <PublicChrome>
+          <SiteFooter />
+        </PublicChrome>
       </BrowserRouter>
     </QueryClientProvider>
   );
