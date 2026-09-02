@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@/lib/router-compat";
 import { ArrowRight, ShoppingBag } from "lucide-react";
-import { CONTACT, HOURS, IMG, GALLERY } from "@/data/menu";
+import { CONTACT, IMG, GALLERY } from "@/data/menu";
 import { ReserveLink } from "@/components/site/ReserveLink";
 import { DishWidget } from "@/components/site/DishWidget";
 import mainHeroImg from "@/assets/main-hero.png";
@@ -199,7 +199,7 @@ function Index() {
       <section className="relative overflow-hidden">
         <img src={IMG.aboutBg} alt="" aria-hidden className="absolute inset-0 size-full object-cover" />
         <div className="absolute inset-0 bg-ink/85" />
-        <div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-20 text-cream md:grid-cols-2 md:px-8 md:py-28">
+        <div className="relative mx-auto max-w-7xl px-5 py-20 text-cream md:px-8 md:py-28">
           <div>
             <p className="eyebrow text-clay">Kde nás najdete</p>
             <h2 className="mt-3 text-4xl md:text-5xl">Adresa</h2>
@@ -213,17 +213,6 @@ function Index() {
             <a href={CONTACT.mapUrl} target="_blank" rel="noreferrer" className="btn-ghost mt-8 text-cream">
               Zobrazit na mapě
             </a>
-          </div>
-          <div>
-            <p className="eyebrow text-clay">Otevírací doba</p>
-            <ul className="mt-6 space-y-3">
-              {HOURS.map((h) => (
-                <li key={h.day} className="flex justify-between border-b border-cream/15 pb-3">
-                  <span className="text-cream/70">{h.day}</span>
-                  <span className="font-semibold">{h.time}</span>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </section>
