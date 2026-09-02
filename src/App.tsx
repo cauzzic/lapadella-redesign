@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { SitePopup } from "@/components/site/SitePopup";
 import { useSeo } from "@/lib/seo";
 import type { RouteDefinition } from "@/lib/router-compat";
 
