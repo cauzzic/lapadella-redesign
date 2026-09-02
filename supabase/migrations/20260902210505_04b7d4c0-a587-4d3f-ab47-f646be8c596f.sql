@@ -1,0 +1,4 @@
+CREATE POLICY "Popup images are readable" ON storage.objects FOR SELECT USING (bucket_id = 'popup');
+CREATE POLICY "Staff can upload popup images" ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id = 'popup' AND is_staff(auth.uid()));
+CREATE POLICY "Staff can update popup images" ON storage.objects FOR UPDATE TO authenticated USING (bucket_id = 'popup' AND is_staff(auth.uid())) WITH CHECK (bucket_id = 'popup' AND is_staff(auth.uid()));
+CREATE POLICY "Staff can delete popup images" ON storage.objects FOR DELETE TO authenticated USING (bucket_id = 'popup' AND is_staff(auth.uid()));
