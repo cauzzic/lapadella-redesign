@@ -423,13 +423,13 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
 
   const visible = useMemo(() => {
     let result = rows;
-    if (sectionFilter === "menu") {
+    if (tab === "menu") {
       result = result.filter((r) => FOOD_SECTION_IDS.includes(r.sekce));
-    } else if (sectionFilter === "napoje") {
+    } else if (tab === "napoje") {
       result = result.filter((r) => DRINK_SECTION_IDS.includes(r.sekce));
-    } else if (sectionFilter === "tydenni") {
+    } else if (tab === "tydenni") {
       result = result.filter((r) => r.sekce === "tydenni");
-    } else if (sectionFilter === "specialni") {
+    } else if (tab === "specialni") {
       result = result.filter((r) => r.sekce === "specialni");
     }
 
@@ -442,7 +442,104 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
     return [...result].sort(
       (a, b) => sectionRank(a.sekce) - sectionRank(b.sekce) || (a.poradi ?? 0) - (b.poradi ?? 0),
     );
-  }, [rows, sectionFilter, filter]);
+  }, [rows, tab, filter]);
+
+  /** Položky rozdělené do skupin podle aktivní záložky (kategorie / den / podkategorie). */
+  const groups = useMemo(() => {
+    if (tab === "tydenni") {
+      return WEEKLY_DAYS.map((d) => ({
+        id: d.id,
+        title: d.title,
+        items: visible
+          .filter((r) => parseWeeklySubgroup(r.podskupina).day === d.id)
+          .sort(
+            (a, b) =>
+              (parseWeeklySubgroup(a.podskupina).course === "polevka" ? 0 : 1) -
+                (parseWeeklySubgroup(b.podskupina).course === "polevka" ? 0 : 1) ||
+              (a.poradi ?? 0) - (b.poradi ?? 0),
+          ),
+      })).concat([
+        {
+          id: "_none",
+          title: "Bez dne",
+          items: visible.filter(
+            (r) => !WEEKLY_DAYS.some((d) => d.id === parseWeeklySubgroup(r.podskupina).day),
+          ),
+        },
+      ]);
+    }
+    if (tab === "specialni") {
+      return SPECIAL_SUBGROUPS.map((s) => ({
+        id: s.id,
+        title: s.title,
+        items: visible.filter((r) => r.podskupina === s.id),
+      })).concat([
+        {
+          id: "_none",
+          title: "Bez podkategorie",
+          items: visible.filter((r) => !SPECIAL_SUBGROUPS.some((s) => s.id === r.podskupina)),
+        },
+      ]);
+    }
+    const meta = tab === "napoje" ? DRINK_SECTIONS : FOOD_SECTIONS;
+    return meta
+      .map((s) => ({ id: s.id, title: s.title, items: visible.filter((r) => r.sekce === s.id) }))
+      .concat([
+        {
+          id: "_other",
+          title: "Ostatní",
+          items: visible.filter((r) => !meta.some((s) => s.id === r.sekce)),
+        },
+      ]);
+  }, [visible, tab]);
+
+  const counts = useMemo(
+    () => ({
+      menu: rows.filter((r) => FOOD_SECTION_IDS.includes(r.sekce)).length,
+      napoje: rows.filter((r) => DRINK_SECTION_IDS.includes(r.sekce)).length,
+      tydenni: rows.filter((r) => r.sekce === "tydenni").length,
+      specialni: rows.filter((r) => r.sekce === "specialni").length,
+    }),
+    [rows],
+  );
+
+  const isItemsTab = tab === "menu" || tab === "napoje" || tab === "tydenni" || tab === "specialni";
+
+  function openNew() {
+    if (tab === "tydenni") {
+      setForm({
+        ...emptyForm,
+        sekce: "tydenni",
+        podskupina: WEEKLY_DAYS[0]!.id,
+        cast: WEEKLY_COURSES[1]!.id,
+      });
+      return;
+    }
+    if (tab === "specialni") {
+      setForm({ ...emptyForm, sekce: "specialni", podskupina: SPECIAL_SUBGROUPS[0]!.id });
+      return;
+    }
+    const first = tab === "napoje" ? DRINK_SECTIONS[0]!.id : FOOD_SECTIONS[0]!.id;
+    setForm({ ...emptyForm, sekce: first });
+  }
+
+  function editRow(row: MenuRow) {
+    setForm({
+      id: row.id,
+      sekce: row.sekce,
+      nazev: row.nazev,
+      popis: row.popis ?? "",
+      cena: row.cena === null ? "" : String(row.cena),
+      obrazek: row.obrazek ?? "",
+      aktivni: row.aktivni,
+      poradi: String(row.poradi),
+      podskupina:
+        row.sekce === "tydenni" ? parseWeeklySubgroup(row.podskupina).day : (row.podskupina ?? ""),
+      cast: row.sekce === "tydenni" ? parseWeeklySubgroup(row.podskupina).course : "",
+      alergeny: (row.alergeny ?? []).map(Number),
+    });
+  }
+
 
 
   async function save() {
