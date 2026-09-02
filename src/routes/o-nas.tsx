@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@/lib/router-compat";
 import { PageHero } from "@/components/site/PageHero";
-import { IMG } from "@/data/menu";
+import aboutPanorama from "@/assets/about-bg-panorama.png.asset.json";
 
 export const Route = createFileRoute("/o-nas")({
   head: () => ({
@@ -17,9 +17,9 @@ export const Route = createFileRoute("/o-nas")({
         content: "Pravá neapolská pizza a rodinná tradice předávaná z generace na generaci.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: IMG.aboutBg },
+      { property: "og:image", content: aboutPanorama.url },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: IMG.aboutBg },
+      { name: "twitter:image", content: aboutPanorama.url },
     ],
   }),
   component: AboutPage,
