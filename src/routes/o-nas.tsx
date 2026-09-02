@@ -39,7 +39,7 @@ function AboutPage() {
       <PageHero
         eyebrow="Restaurace La Padella"
         title="O nás"
-        image={IMG.aboutBg}
+        image={aboutPanorama.url}
         text="„Zavřete oči a představte si: pravá italská atmosféra, křupavé těsto pizzy a dokonalé chutě, které se rozplývají na jazyku.“"
       />
 
