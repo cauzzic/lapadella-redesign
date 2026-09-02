@@ -37,15 +37,18 @@ const sectionRank = (id: string) => {
 };
 
 
-const SECTION_FILTERS = [
-  { id: "all", label: "Vše" },
-  { id: "menu", label: "Menu" },
-  { id: "napoje", label: "Nápoje" },
-  { id: "tydenni", label: "Týdenní menu" },
-  { id: "specialni", label: "Speciální menu" },
+/** Záložky administrace – každá sekce má vlastní obsah a nastavení. */
+const TABS = [
+  { id: "menu", label: "Menu", hint: "Jídla podle kategorií" },
+  { id: "napoje", label: "Nápoje", hint: "Nápojová karta" },
+  { id: "tydenni", label: "Týdenní menu", hint: "Obědové menu Po–Pá" },
+  { id: "specialni", label: "Speciální menu", hint: "Sezónní a speciální nabídka" },
+  { id: "popup", label: "Vyskakovací okno", hint: "Oznámení na webu" },
+  { id: "users", label: "Uživatelé", hint: "Role a oprávnění", ownerOnly: true },
 ] as const;
 
-type SectionFilterId = (typeof SECTION_FILTERS)[number]["id"];
+type TabId = (typeof TABS)[number]["id"];
+
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
