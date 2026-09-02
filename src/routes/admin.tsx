@@ -753,6 +753,10 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
         />
       )}
 
+      <PopupAdmin />
+
+
+
 
       {loading ? (
         <CenteredSpinner />
