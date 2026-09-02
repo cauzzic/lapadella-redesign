@@ -157,25 +157,25 @@ function AdminPage() {
   if (!authChecked) return <CenteredSpinner />;
 
   return (
-    <div className="min-h-[70vh] bg-background px-4 py-16">
+    <div className="min-h-screen bg-muted/30">
       <Toaster />
-      <div className="mx-auto w-full max-w-5xl space-y-12">
-        {!session ? (
+      {!session ? (
+        <div className="px-4 py-16">
           <AuthCard />
-        ) : !roleChecked ? (
-          <CenteredSpinner />
-        ) : isAdmin ? (
-          <>
-            <MenuAdmin email={session.user.email ?? ""} isOwner={isOwner} />
-            {isOwner && <UsersAdmin />}
-          </>
-        ) : (
+        </div>
+      ) : !roleChecked ? (
+        <CenteredSpinner />
+      ) : isAdmin ? (
+        <MenuAdmin email={session.user.email ?? ""} isOwner={isOwner} />
+      ) : (
+        <div className="px-4 py-16">
           <NoAccessCard email={session.user.email ?? ""} />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
+
 
 
 function CenteredSpinner() {
