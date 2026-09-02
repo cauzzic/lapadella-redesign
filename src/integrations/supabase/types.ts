@@ -80,6 +80,48 @@ export type Database = {
         }
         Relationships: []
       }
+      popup_nastaveni: {
+        Row: {
+          aktivni: boolean
+          created_at: string
+          datum_do: string | null
+          datum_od: string | null
+          id: number
+          nadpis: string
+          obrazek: string | null
+          text: string
+          tlacitko_odkaz: string
+          tlacitko_text: string
+          updated_at: string
+        }
+        Insert: {
+          aktivni?: boolean
+          created_at?: string
+          datum_do?: string | null
+          datum_od?: string | null
+          id?: number
+          nadpis?: string
+          obrazek?: string | null
+          text?: string
+          tlacitko_odkaz?: string
+          tlacitko_text?: string
+          updated_at?: string
+        }
+        Update: {
+          aktivni?: boolean
+          created_at?: string
+          datum_do?: string | null
+          datum_od?: string | null
+          id?: number
+          nadpis?: string
+          obrazek?: string | null
+          text?: string
+          tlacitko_odkaz?: string
+          tlacitko_text?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
