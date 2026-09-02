@@ -1,11 +1,19 @@
 import { Link } from "@/lib/router-compat";
+import { useLocation } from "react-router-dom";
 import { MapPin, Mail, Clock, Instagram, Facebook } from "lucide-react";
 import { CONTACT, HOURS } from "@/data/menu";
 
 export function SiteFooter() {
+  const { pathname } = useLocation();
+  const showHours = pathname === "/";
+
   return (
     <footer className="bg-ink text-cream">
-      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-3 md:px-8 md:py-20">
+      <div
+        className={`mx-auto grid max-w-7xl gap-12 px-5 py-16 md:px-8 md:py-20 ${
+          showHours ? "md:grid-cols-3" : "md:grid-cols-2"
+        }`}
+      >
         <div>
           <p className="font-display text-3xl">La Padella</p>
           <p className="mt-1 text-[0.6rem] font-semibold tracking-[0.3em] text-clay uppercase">
