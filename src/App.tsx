@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { SitePopup } from "@/components/site/SitePopup";
 import { useSeo } from "@/lib/seo";
 import type { RouteDefinition } from "@/lib/router-compat";
 
@@ -85,11 +86,18 @@ function ScrollBehavior() {
   return null;
 }
 
+function PublicPopup() {
+  const { pathname } = useLocation();
+  if (pathname.startsWith("/admin")) return null;
+  return <SitePopup />;
+}
+
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <ScrollBehavior />
+        <PublicPopup />
         <SiteHeader />
         <main>
           <Routes>
@@ -104,3 +112,4 @@ export default function App() {
     </QueryClientProvider>
   );
 }
+
