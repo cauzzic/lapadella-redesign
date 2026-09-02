@@ -328,17 +328,18 @@ function UsersAdmin() {
   };
 
   return (
-    <div className="space-y-4">
-      <div>
-        <h2 className="text-2xl font-semibold text-foreground">Správa uživatelů</h2>
-        <p className="text-sm text-muted-foreground">
+    <Card>
+      <CardHeader className="border-b border-border py-3">
+        <CardTitle className="text-base">Uživatelé a role</CardTitle>
+        <p className="text-xs text-muted-foreground">
           Pouze vlastník může přidělovat a odebírat administrátorská oprávnění.
         </p>
-      </div>
+      </CardHeader>
       {loading ? (
         <CenteredSpinner />
       ) : (
-        <div className="overflow-x-auto rounded-lg border border-border">
+        <div className="overflow-x-auto">
+
           <table className="w-full text-sm">
             <thead className="bg-muted/50 text-left">
               <tr>
