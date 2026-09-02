@@ -385,7 +385,8 @@ function UsersAdmin() {
           </table>
         </div>
       )}
-    </div>
+    </Card>
+
   );
 }
 
