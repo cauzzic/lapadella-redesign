@@ -389,13 +389,13 @@ function UsersAdmin() {
 }
 
 function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
-
   const [rows, setRows] = useState<MenuRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState<FormState | null>(null);
   const [saving, setSaving] = useState(false);
   const [filter, setFilter] = useState("");
-  const [sectionFilter, setSectionFilter] = useState<SectionFilterId>("all");
+  const [tab, setTab] = useState<TabId>("menu");
+
 
   const load = useCallback(async () => {
     setLoading(true);
