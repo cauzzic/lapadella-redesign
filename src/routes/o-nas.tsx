@@ -18,9 +18,9 @@ export const Route = createFileRoute("/o-nas")({
         content: "Pravá neapolská pizza a rodinná tradice předávaná z generace na generaci.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: aboutPanorama.url },
+      { property: "og:image", content: aboutPanorama },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: aboutPanorama.url },
+      { name: "twitter:image", content: aboutPanorama },
     ],
   }),
   component: AboutPage,
@@ -40,7 +40,7 @@ function AboutPage() {
       <PageHero
         eyebrow="Restaurace La Padella"
         title="O nás"
-        image={aboutPanorama.url}
+        image={aboutPanorama}
         text="„Zavřete oči a představte si: pravá italská atmosféra, křupavé těsto pizzy a dokonalé chutě, které se rozplývají na jazyku.“"
       />
 
