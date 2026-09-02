@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@/lib/router-compat";
 import { PageHero } from "@/components/site/PageHero";
+import { IMG } from "@/data/menu";
 import aboutPanorama from "@/assets/about-bg-panorama.png.asset.json";
 
 export const Route = createFileRoute("/o-nas")({
