@@ -91,19 +91,21 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div>
-          <p className="flex items-center gap-2 text-[0.7rem] font-semibold tracking-[0.22em] text-clay uppercase">
-            <Clock className="size-4" /> Otevírací doba
-          </p>
-          <ul className="mt-5 space-y-2 text-sm">
-            {HOURS.map((h) => (
-              <li key={h.day} className="flex justify-between gap-4 border-b border-cream/10 pb-2">
-                <span className="text-cream/70">{h.day}</span>
-                <span>{h.time}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {showHours && (
+          <div>
+            <p className="flex items-center gap-2 text-[0.7rem] font-semibold tracking-[0.22em] text-clay uppercase">
+              <Clock className="size-4" /> Otevírací doba
+            </p>
+            <ul className="mt-5 space-y-2 text-sm">
+              {HOURS.map((h) => (
+                <li key={h.day} className="flex justify-between gap-4 border-b border-cream/10 pb-2">
+                  <span className="text-cream/70">{h.day}</span>
+                  <span>{h.time}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
 
       <div className="border-t border-cream/10 px-5 py-6 text-center text-xs text-cream/50 md:px-8">
