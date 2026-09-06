@@ -4,6 +4,7 @@ import { CONTACT, IMG, GALLERY } from "@/data/menu";
 import { ReserveLink } from "@/components/site/ReserveLink";
 import { DishWidget } from "@/components/site/DishWidget";
 import mainHeroImg from "@/assets/main-hero.png";
+import welcomeChefImg from "@/assets/welcome-chef.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -72,8 +73,8 @@ function Index() {
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 md:px-8 lg:grid-cols-2">
           <div className="relative">
             <img
-              src={IMG.kitchen}
-              alt="Interiér a kuchyně restaurace La Padella"
+              src={welcomeChefImg}
+              alt="Kuchař La Padella připravuje neapolskou pizzu"
               loading="lazy"
               className="w-full rounded-sm object-cover shadow-[var(--shadow-soft)]"
             />

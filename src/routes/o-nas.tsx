@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@/lib/router-compat";
 import { PageHero } from "@/components/site/PageHero";
 import { IMG } from "@/data/menu";
 import aboutPanorama from "@/assets/about-bg-panorama.png";
+import aboutTeamImg from "@/assets/about-team.jpg";
+import aboutChefImg from "@/assets/welcome-chef.jpg";
 
 export const Route = createFileRoute("/o-nas")({
   head: () => ({
@@ -61,16 +63,16 @@ function AboutPage() {
 
           <div className="space-y-5">
             <img
-              src={IMG.team}
-              alt="Tým restaurace La Padella"
+              src={aboutTeamImg}
+              alt="Šéfkuchař Roberto v kuchyni La Padella"
               loading="lazy"
-              className="w-full rounded-sm object-cover shadow-[var(--shadow-soft)]"
+              className="h-72 w-full rounded-sm object-cover shadow-[var(--shadow-soft)] md:h-80"
             />
             <img
-              src={IMG.kitchen}
-              alt="Kuchyně La Padella"
+              src={aboutChefImg}
+              alt="Kuchař La Padella připravuje neapolskou pizzu"
               loading="lazy"
-              className="w-full rounded-sm object-cover shadow-[var(--shadow-soft)]"
+              className="h-72 w-full rounded-sm object-cover shadow-[var(--shadow-soft)] md:h-80"
             />
           </div>
         </div>
