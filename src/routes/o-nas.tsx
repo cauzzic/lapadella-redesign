@@ -3,7 +3,7 @@ import { PageHero } from "@/components/site/PageHero";
 import { IMG } from "@/data/menu";
 import aboutPanorama from "@/assets/about-bg-panorama.png";
 import aboutTeamImg from "@/assets/about-team.jpg";
-import aboutChefImg from "@/assets/welcome-chef.jpg";
+import aboutPizzaioloImg from "@/assets/about-pizzaiolo.jpg";
 
 export const Route = createFileRoute("/o-nas")({
   head: () => ({
@@ -69,8 +69,8 @@ function AboutPage() {
               className="h-72 w-full rounded-sm object-cover shadow-[var(--shadow-soft)] md:h-80"
             />
             <img
-              src={aboutChefImg}
-              alt="Kuchař La Padella připravuje neapolskou pizzu"
+              src={aboutPizzaioloImg}
+              alt="Pizzaiolo La Padella u dřevěné pizza pece"
               loading="lazy"
               className="h-72 w-full rounded-sm object-cover shadow-[var(--shadow-soft)] md:h-80"
             />
