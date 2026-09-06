@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
 import { isPopupVisible, resolvePopupImage, usePopupSettings } from "@/hooks/usePopup";
 
-/** Vyskakovací okno na veřejném webu – zobrazí se při každé nové návštěvě v daném období. */
+/** Vyskakovací okno na veřejném webu – zobrazí se jednou za relaci v daném období. */
 export function SitePopup() {
   const { settings, loading } = usePopupSettings();
   const [closed, setClosed] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  const visible = !loading && !closed && isPopupVisible(settings);
+  const visible =
+    !loading && !closed && isPopupVisible(settings) && !sessionStorage.getItem("padella-popup-shown");
 
   useEffect(() => {
     let active = true;
@@ -20,6 +23,11 @@ export function SitePopup() {
     };
   }, [settings.obrazek]);
 
+  // Označit popup jako zobrazený v této relaci, aby se znovu neotevřel po přechodu na jinou stránku.
+  useEffect(() => {
+    if (visible) sessionStorage.setItem("padella-popup-shown", "1");
+  }, [visible]);
+
   useEffect(() => {
     if (!visible) return undefined;
     const onKey = (e: KeyboardEvent) => {
@@ -30,6 +38,18 @@ export function SitePopup() {
   }, [visible]);
 
   if (!visible) return null;
+
+  const isInternal = /^\/(?!\/)/.test(settings.tlacitko_odkaz);
+
+  const handleButtonClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setClosed(true);
+    if (isInternal) {
+      navigate(settings.tlacitko_odkaz);
+    } else {
+      window.open(settings.tlacitko_odkaz, "_blank", "noopener,noreferrer");
+    }
+  };
 
   return (
     <div
@@ -73,10 +93,9 @@ export function SitePopup() {
         {settings.tlacitko_text.trim() && settings.tlacitko_odkaz.trim() && (
           <a
             href={settings.tlacitko_odkaz}
-            target={/^https?:/.test(settings.tlacitko_odkaz) ? "_blank" : undefined}
+            onClick={handleButtonClick}
             rel="noreferrer"
             className="btn-primary mt-7 inline-flex"
-            onClick={() => setClosed(true)}
           >
             {settings.tlacitko_text}
           </a>
