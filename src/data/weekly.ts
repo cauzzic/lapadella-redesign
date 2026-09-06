@@ -5,7 +5,7 @@ export type WeeklyDay = {
 };
 
 export const WEEKLY_NOTE =
-  "Denní menu podáváme od pondělí do pátku, 11:00 – 14:00. Polévka je součástí nabídky, k hlavním jídlům nabízíme přílohu dle popisu.";
+  "Denní menu podáváme od pondělí do pátku, 11:00 – 14:00. Polévka není součástí ceny hlavních jídel, k hlavním jídlům nabízíme přílohu dle popisu.";
 
 export const WEEKLY_MENU: WeeklyDay[] = [
   {
