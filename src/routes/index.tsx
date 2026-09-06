@@ -169,7 +169,7 @@ function Index() {
                 src={src}
                 alt={`Speciality La Padella ${i + 1}`}
                 loading="lazy"
-                className={`h-48 w-full rounded-sm object-cover shadow-[var(--shadow-card)] md:h-60 ${
+                className={`aspect-[4/5] w-full rounded-sm object-cover shadow-[var(--shadow-card)] ${
                   i % 3 === 0 ? "translate-y-4" : ""
                 }`}
               />
