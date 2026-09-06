@@ -1,3 +1,11 @@
+import ig1 from "@/assets/galerie-ig-1.jpg";
+import ig2 from "@/assets/galerie-ig-2.jpg";
+import ig3 from "@/assets/galerie-ig-3.jpg";
+import ig4 from "@/assets/galerie-ig-4.jpg";
+import ig5 from "@/assets/galerie-ig-5.jpg";
+import ig6 from "@/assets/galerie-ig-6.jpg";
+import ig7 from "@/assets/galerie-ig-7.jpg";
+
 export type Dish = { name: string; price: string; desc?: string; allergens?: number[] };
 export type MenuSection = { id: string; title: string; image?: string; items: Dish[] };
 
@@ -13,14 +21,6 @@ export const IMG = {
   contactBg: "https://www.lapadella.cz/assets/images/contact-bg.jpeg",
   menuBanner: "https://www.lapadella.cz/assets/images/menu-list-banner.jpg",
 };
-
-import ig1 from "@/assets/galerie-ig-1.jpg";
-import ig2 from "@/assets/galerie-ig-2.jpg";
-import ig3 from "@/assets/galerie-ig-3.jpg";
-import ig4 from "@/assets/galerie-ig-4.jpg";
-import ig5 from "@/assets/galerie-ig-5.jpg";
-import ig6 from "@/assets/galerie-ig-6.jpg";
-import ig7 from "@/assets/galerie-ig-7.jpg";
 
 const GALLERY_NEW = [ig1, ig2, ig3, ig4, ig5, ig6, ig7];
 
