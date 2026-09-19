@@ -44,7 +44,7 @@ function Index() {
 <img
           src={mainHeroImg}
           alt="Italský kuchař připravuje neapolskou pizzu v La Padella"
-          className="absolute inset-0 size-full object-contain object-center md:object-cover"
+          className="absolute inset-0 size-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/50 to-ink/90" />
         <div className="relative mx-auto w-full max-w-7xl px-5 pt-28 pb-16 md:px-8">
