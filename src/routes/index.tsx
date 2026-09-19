@@ -40,11 +40,11 @@ function Index() {
   return (
     <>
       {/* HERO */}
-      <section className="relative flex min-h-screen items-center overflow-hidden">
+      <section className="relative flex min-h-screen items-center overflow-hidden bg-ink">
 <img
           src={mainHeroImg}
           alt="Italský kuchař připravuje neapolskou pizzu v La Padella"
-          className="absolute inset-0 size-full object-cover"
+          className="absolute inset-0 size-full object-contain object-center md:object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/50 to-ink/90" />
         <div className="relative mx-auto w-full max-w-7xl px-5 pt-28 pb-16 md:px-8">
