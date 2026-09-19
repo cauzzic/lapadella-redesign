@@ -1,7 +1,6 @@
 import { createFileRoute } from "@/lib/router-compat";
 import { PageHero } from "@/components/site/PageHero";
 import { MenuList } from "@/components/site/MenuList";
-import { AllergenInfo } from "@/components/site/AllergenInfo";
 import { IMG } from "@/data/menu";
 import { DRINK_SECTIONS } from "@/data/menuSections";
 import { useMenuSections } from "@/hooks/useMenuSections";
@@ -41,7 +40,6 @@ function DrinksPage() {
         text="Vína pečlivě vybíráme z italských vinařských oblastí, aby dokonale ladila s naším menu."
       />
       <MenuList sections={sections} />
-      <AllergenInfo />
     </>
   );
 }
