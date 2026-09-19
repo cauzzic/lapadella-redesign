@@ -40,7 +40,6 @@ function DrinksPage() {
         text="Vína pečlivě vybíráme z italských vinařských oblastí, aby dokonale ladila s naším menu."
       />
       <MenuList sections={sections} />
-      <AllergenInfo />
     </>
   );
 }
