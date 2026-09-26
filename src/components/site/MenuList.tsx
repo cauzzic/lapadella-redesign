@@ -1,4 +1,4 @@
-import type { MenuSection } from "@/data/menu";
+import type { Dish, MenuSection } from "@/data/menu";
 import { AllergenIcons } from "@/components/site/AllergenIcons";
 
 export function MenuList({ sections }: { sections: MenuSection[] }) {
@@ -73,5 +73,26 @@ export function MenuList({ sections }: { sections: MenuSection[] }) {
         ))}
       </div>
     </div>
+  );
+}
+
+function ItemList({ items }: { items: Dish[] }) {
+  return (
+    <ul className="divide-y divide-border">
+      {items.map((item) => (
+        <li key={item.name} className="flex gap-6 py-5">
+          <div className="min-w-0">
+            <p className="text-sm font-semibold tracking-[0.08em] uppercase">
+              {item.name}
+              <AllergenIcons numbers={item.allergens} />
+            </p>
+            {item.desc && (
+              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
+            )}
+          </div>
+          <span className="ml-auto shrink-0 font-display text-xl text-primary">{item.price}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
