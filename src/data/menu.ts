@@ -6,8 +6,20 @@ import ig5 from "@/assets/galerie-ig-5.jpg";
 import ig6 from "@/assets/galerie-ig-6.jpg";
 import ig7 from "@/assets/galerie-ig-7.jpg";
 
-export type Dish = { name: string; price: string; desc?: string; allergens?: number[] };
-export type MenuSection = { id: string; title: string; image?: string; items: Dish[] };
+export type Dish = {
+  name: string;
+  price: string;
+  desc?: string;
+  allergens?: number[];
+  subgroup?: string;
+};
+export type MenuSection = {
+  id: string;
+  title: string;
+  image?: string;
+  items: Dish[];
+  subgroups?: { id: string; title: string }[];
+};
 
 export const IMG = {
   chef: "https://www.lapadella.cz/assets/images/chef-pizza.webp",
