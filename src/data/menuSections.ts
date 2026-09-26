@@ -85,6 +85,15 @@ export function parseWeeklySubgroup(value: string | null): {
   return { day: day ?? "", course: course ?? "" };
 }
 
+/** Podkategorie vín – hodnota sloupce `podskupina` u sekce "vina". */
+export const WINE_SUBGROUPS: { id: string; title: string }[] = [
+  { id: "cervena", title: "Červená vína" },
+  { id: "bila", title: "Bílá vína" },
+  { id: "ruzova", title: "Růžová vína" },
+  { id: "champagne", title: "Champagne" },
+  { id: "sumiva", title: "Šumivá vína & Prosecco" },
+];
+
 /** Podkategorie speciálního menu – hodnota sloupce `podskupina` u sekce "specialni". */
 export const SPECIAL_SUBGROUPS: { id: string; title: string }[] = [
   { id: "sefkuchar", title: "Speciality šéfkuchaře" },

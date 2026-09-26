@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import type { MenuSection } from "@/data/menu";
-import type { SectionMeta } from "@/data/menuSections";
+import { WINE_SUBGROUPS, type SectionMeta } from "@/data/menuSections";
 
 type Row = {
   id: string;
@@ -12,6 +12,7 @@ type Row = {
   obrazek: string | null;
   poradi: number | null;
   alergeny: number[] | null;
+  podskupina: string | null;
 };
 
 function formatPrice(cena: Row["cena"]): string {
@@ -28,7 +29,7 @@ function formatPrice(cena: Row["cena"]): string {
 async function fetchMenuItems(sectionIds: string[]): Promise<Row[]> {
   const { data, error } = await supabase
     .from("menu_polozky")
-    .select("id, sekce, nazev, popis, cena, obrazek, poradi, alergeny")
+    .select("id, sekce, nazev, popis, cena, obrazek, poradi, alergeny, podskupina")
     .eq("aktivni", true)
     .in("sekce", sectionIds)
     .order("poradi", { ascending: true });
@@ -59,11 +60,13 @@ export function useMenuSections(meta: SectionMeta[]) {
           ...(r.alergeny && r.alergeny.length > 0
             ? { allergens: r.alergeny.map(Number) }
             : {}),
+          ...(r.podskupina ? { subgroup: r.podskupina } : {}),
         }));
       return {
         id: m.id,
         title: m.title,
         ...(m.image ? { image: m.image } : {}),
+        ...(m.id === "vina" ? { subgroups: WINE_SUBGROUPS } : {}),
         items,
       };
     })

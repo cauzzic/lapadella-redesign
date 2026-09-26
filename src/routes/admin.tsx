@@ -16,6 +16,7 @@ import {
   DRINK_SECTIONS,
   WEEKLY_DAYS,
   SPECIAL_SUBGROUPS,
+  WINE_SUBGROUPS,
   WEEKLY_COURSES,
   buildWeeklySubgroup,
   parseWeeklySubgroup,
@@ -78,6 +79,7 @@ type MenuRow = {
 function subgroupOptions(sekce: string): { id: string; title: string }[] {
   if (sekce === "tydenni") return WEEKLY_DAYS;
   if (sekce === "specialni") return SPECIAL_SUBGROUPS;
+  if (sekce === "vina") return WINE_SUBGROUPS;
   return [];
 }
 
@@ -744,7 +746,10 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
                                 ? WEEKLY_COURSES.find(
                                     (c) => c.id === parseWeeklySubgroup(row.podskupina).course,
                                   )?.title
-                                : null;
+                                : row.sekce === "vina"
+                                  ? (WINE_SUBGROUPS.find((w) => w.id === row.podskupina)?.title ??
+                                    null)
+                                  : null;
                             return (
                               <li
                                 key={row.id}

@@ -1,4 +1,4 @@
-import type { MenuSection } from "@/data/menu";
+import type { Dish, MenuSection } from "@/data/menu";
 import { AllergenIcons } from "@/components/site/AllergenIcons";
 
 export function MenuList({ sections }: { sections: MenuSection[] }) {
@@ -29,26 +29,34 @@ export function MenuList({ sections }: { sections: MenuSection[] }) {
                 i % 2 === 1 ? "lg:[&>figure]:order-first" : ""
               }`}
             >
-              <ul className="divide-y divide-border">
-                {section.items.map((item) => (
-                  <li key={item.name} className="flex gap-6 py-5">
-                    <div className="min-w-0">
-                      <p className="text-sm font-semibold tracking-[0.08em] uppercase">
-                        {item.name}
-                        <AllergenIcons numbers={item.allergens} />
-                      </p>
-                      {item.desc && (
-                        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                          {item.desc}
-                        </p>
-                      )}
-                    </div>
-                    <span className="ml-auto shrink-0 font-display text-xl text-primary">
-                      {item.price}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              {section.subgroups ? (
+                <div className="space-y-10">
+                  {[
+                    ...section.subgroups.map((g) => ({
+                      ...g,
+                      items: section.items.filter((it) => it.subgroup === g.id),
+                    })),
+                    {
+                      id: "_other",
+                      title: "",
+                      items: section.items.filter(
+                        (it) => !section.subgroups!.some((g) => g.id === it.subgroup),
+                      ),
+                    },
+                  ]
+                    .filter((g) => g.items.length > 0)
+                    .map((g) => (
+                      <div key={g.id}>
+                        {g.title && (
+                          <h3 className="font-display text-2xl text-primary">{g.title}</h3>
+                        )}
+                        <ItemList items={g.items} />
+                      </div>
+                    ))}
+                </div>
+              ) : (
+                <ItemList items={section.items} />
+              )}
 
               {section.image && (
                 <figure className="hidden lg:block">
@@ -65,5 +73,26 @@ export function MenuList({ sections }: { sections: MenuSection[] }) {
         ))}
       </div>
     </div>
+  );
+}
+
+function ItemList({ items }: { items: Dish[] }) {
+  return (
+    <ul className="divide-y divide-border">
+      {items.map((item) => (
+        <li key={item.name} className="flex gap-6 py-5">
+          <div className="min-w-0">
+            <p className="text-sm font-semibold tracking-[0.08em] uppercase">
+              {item.name}
+              <AllergenIcons numbers={item.allergens} />
+            </p>
+            {item.desc && (
+              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
+            )}
+          </div>
+          <span className="ml-auto shrink-0 font-display text-xl text-primary">{item.price}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
