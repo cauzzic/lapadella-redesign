@@ -5,6 +5,10 @@ import ig4 from "@/assets/galerie-ig-4.jpg";
 import ig5 from "@/assets/galerie-ig-5.jpg";
 import ig6 from "@/assets/galerie-ig-6.jpg";
 import ig7 from "@/assets/galerie-ig-7.jpg";
+import menuPredkrmy from "@/assets/menu/home-predkrmy.png";
+import menuHlavniChody from "@/assets/menu/home-hlavni-chody.png";
+import menuDezerty from "@/assets/menu/home-dezerty.png";
+import menuNapoje from "@/assets/menu/home-napoje.png";
 
 export type Dish = {
   name: string;
@@ -26,12 +30,12 @@ export const IMG = {
   kitchen: "https://www.lapadella.cz/assets/images/kitchen-1.webp",
   aboutBg: "https://www.lapadella.cz/assets/images/about-bg-3.webp",
   team: "https://www.lapadella.cz/assets/images/team-1.webp",
-  food1: "https://www.lapadella.cz/assets/images/slider/food-1.webp",
-  food4: "https://www.lapadella.cz/assets/images/slider/food-4.webp",
-  oblique3: "https://www.lapadella.cz/assets/images/oblique-img3.jpg",
-  oblique4: "https://www.lapadella.cz/assets/images/oblique-img4.jpg",
+  food1: menuPredkrmy,
+  food4: menuHlavniChody,
+  oblique3: menuDezerty,
+  oblique4: menuNapoje,
   contactBg: "https://www.lapadella.cz/assets/images/contact-bg.jpeg",
-  menuBanner: "https://www.lapadella.cz/assets/images/menu-list-banner.jpg",
+  menuBanner: menuHlavniChody,
 };
 
 const GALLERY_NEW = [ig1, ig2, ig3, ig4, ig5, ig6, ig7];
@@ -85,7 +89,7 @@ export const FOOD_MENU: MenuSection[] = [
   {
     id: "predkrmy",
     title: "Předkrmy",
-    image: "https://www.lapadella.cz/data/P%C5%98EDKRMY.jpeg",
+    image: menuPredkrmy,
     items: [
       {
         name: "Bruschette pomodorini e verdure staggionali",
@@ -117,7 +121,7 @@ export const FOOD_MENU: MenuSection[] = [
   {
     id: "pizza",
     title: "Pizza",
-    image: "https://www.lapadella.cz/data/Pizza.jpeg",
+    image: menuHlavniChody,
     items: [
       { name: "Margherita", price: "209 Kč", desc: "rajčatová omáčka, mozzarella, bazalka" },
       { name: "Cardinale", price: "229 Kč", desc: "rajčatová omáčka, mozzarella, dušená šunka" },
@@ -199,7 +203,7 @@ export const FOOD_MENU: MenuSection[] = [
   {
     id: "testoviny",
     title: "Těstoviny a rizota",
-    image: "https://www.lapadella.cz/data/PASTA%20A%20RIZOTA.jpeg",
+    image: menuHlavniChody,
     items: [
       {
         name: "Tortelloni ricotta spinaci",
@@ -233,7 +237,7 @@ export const FOOD_MENU: MenuSection[] = [
   {
     id: "masa-ryby",
     title: "Masa a ryby",
-    image: "https://www.lapadella.cz/data/MO%C5%98E%20A%20ZEM%C4%9A.jpeg",
+    image: menuHlavniChody,
     items: [
       { name: "Frittura di gamberri e calamari (300 g)", price: "395 Kč", desc: "fritované krevety a kalamáry" },
       { name: "Impepata di cozze (500 g)", price: "325 Kč", desc: "mísa vařených slávek na bílém víně" },
@@ -272,7 +276,7 @@ export const FOOD_MENU: MenuSection[] = [
   {
     id: "salaty",
     title: "Saláty",
-    image: "https://www.lapadella.cz/data/SAL%C3%81TY.jpeg",
+    image: menuPredkrmy,
     items: [
       {
         name: "Insalata Pompei",
@@ -289,7 +293,7 @@ export const FOOD_MENU: MenuSection[] = [
   {
     id: "dezerty",
     title: "Dezerty",
-    image: "https://www.lapadella.cz/data/DEZERTY.jpeg",
+    image: menuDezerty,
     items: [
       { name: "Cannolo siciliano", price: "145 Kč", desc: "tradiční sicilská trubička, krém z ricotty, drcené pistácie" },
       {
@@ -303,7 +307,7 @@ export const FOOD_MENU: MenuSection[] = [
   {
     id: "deti",
     title: "Děti",
-    image: "https://www.lapadella.cz/data/D%C4%9ATI.jpeg",
+    image: menuHlavniChody,
     items: [
       { name: "Spaghetti baby", price: "139 Kč", desc: "špagety s rajčatovou omáčkou, sypané parmazánem" },
       { name: "Pollo baby", price: "159 Kč", desc: "kuřecí řízečky, hranolky, rajčatová salsa" },
