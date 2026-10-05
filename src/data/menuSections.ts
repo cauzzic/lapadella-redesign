@@ -31,7 +31,7 @@ export const FOOD_SECTIONS: SectionMeta[] = [
     id: "masa-ryby",
     title: "Masa a ryby",
     image: igMasaRyby,
-    imageFit: "contain",
+    imageFit: "cover",
   },
   { id: "salaty", title: "Saláty", image: igSalaty },
   { id: "dezerty", title: "Dezerty", image: menuDezerty },
