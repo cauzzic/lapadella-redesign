@@ -2,7 +2,9 @@ import igPizza from "@/assets/menu/pizza.jpg";
 import igPredkrmy from "@/assets/menu/predkrmy.jpg";
 import igTestoviny from "@/assets/menu/testoviny.jpg";
 import igMasaRyby from "@/assets/menu/masa-ryby.jpg";
-import igSalaty from "@/assets/galerie-ig-5.jpg";
+import igSalaty from "@/assets/menu/salaty.jpg";
+import igDeti from "@/assets/menu/deti.jpg";
+import igPrilohy from "@/assets/menu/prilohy.jpg";
 import menuDezerty from "@/assets/menu/home-dezerty.png";
 
 /**
