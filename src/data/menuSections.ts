@@ -1,5 +1,8 @@
-import menuPredkrmy from "@/assets/menu/home-predkrmy.png";
-import menuHlavniChody from "@/assets/menu/home-hlavni-chody.png";
+import igPizza from "@/assets/menu/pizza.jpg";
+import igPredkrmy from "@/assets/menu/predkrmy.jpg";
+import igTestoviny from "@/assets/menu/testoviny.jpg";
+import igMasaRyby from "@/assets/menu/masa-ryby.jpg";
+import igSalaty from "@/assets/galerie-ig-5.jpg";
 import menuDezerty from "@/assets/menu/home-dezerty.png";
 
 /**
@@ -9,22 +12,22 @@ import menuDezerty from "@/assets/menu/home-dezerty.png";
 export type SectionMeta = { id: string; title: string; image?: string };
 
 export const FOOD_SECTIONS: SectionMeta[] = [
-  { id: "predkrmy", title: "Předkrmy", image: menuPredkrmy },
-  { id: "pizza", title: "Pizza", image: menuHlavniChody },
+  { id: "predkrmy", title: "Předkrmy", image: igPredkrmy },
+  { id: "pizza", title: "Pizza", image: igPizza },
   {
     id: "testoviny",
     title: "Těstoviny a rizota",
-    image: menuHlavniChody,
+    image: igTestoviny,
   },
   {
     id: "masa-ryby",
     title: "Masa a ryby",
-    image: menuHlavniChody,
+    image: igMasaRyby,
   },
-  { id: "salaty", title: "Saláty", image: menuPredkrmy },
+  { id: "salaty", title: "Saláty", image: igSalaty },
   { id: "dezerty", title: "Dezerty", image: menuDezerty },
-  { id: "deti", title: "Děti", image: menuHlavniChody },
-  { id: "prilohy", title: "Přílohy" },
+  { id: "deti", title: "Děti", image: igPizza },
+  { id: "prilohy", title: "Přílohy", image: igPredkrmy },
 ];
 
 export const DRINK_SECTIONS: SectionMeta[] = [
