@@ -1,6 +1,7 @@
-import igPizza from "@/assets/galerie-ig-1.jpg";
-import igPredkrmy from "@/assets/galerie-ig-2.jpg";
-import igTestoviny from "@/assets/galerie-ig-3.jpg";
+import igPizza from "@/assets/menu/pizza.jpg";
+import igPredkrmy from "@/assets/menu/predkrmy.jpg";
+import igTestoviny from "@/assets/menu/testoviny.jpg";
+import igMasaRyby from "@/assets/menu/masa-ryby.jpg";
 import igSalaty from "@/assets/galerie-ig-5.jpg";
 import menuDezerty from "@/assets/menu/home-dezerty.png";
 
@@ -21,7 +22,7 @@ export const FOOD_SECTIONS: SectionMeta[] = [
   {
     id: "masa-ryby",
     title: "Masa a ryby",
-    image: igTestoviny,
+    image: igMasaRyby,
   },
   { id: "salaty", title: "Saláty", image: igSalaty },
   { id: "dezerty", title: "Dezerty", image: menuDezerty },

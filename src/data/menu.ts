@@ -9,6 +9,10 @@ import menuPredkrmy from "@/assets/menu/home-predkrmy.png";
 import menuHlavniChody from "@/assets/menu/home-hlavni-chody.png";
 import menuDezerty from "@/assets/menu/home-dezerty.png";
 import menuNapoje from "@/assets/menu/home-napoje.png";
+import galleryAntipasti from "@/assets/gallery/antipasti.jpg";
+import galleryMorskePlody from "@/assets/gallery/morske-plody.jpg";
+import galleryPizza from "@/assets/gallery/pizza.jpg";
+import gallerySpecialita from "@/assets/gallery/specialita.jpg";
 
 export type Dish = {
   name: string;
@@ -38,7 +42,19 @@ export const IMG = {
   menuBanner: menuHlavniChody,
 };
 
-export const GALLERY = [ig7, ig1, ig2, ig3, ig4, ig5, ig6];
+export const GALLERY = [
+  ig7,
+  galleryAntipasti,
+  galleryMorskePlody,
+  galleryPizza,
+  gallerySpecialita,
+  ig1,
+  ig2,
+  ig3,
+  ig4,
+  ig5,
+  ig6,
+];
 
 export const CONTACT = {
   phone: "+420 723 232 376",
