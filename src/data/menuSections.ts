@@ -1,3 +1,7 @@
+import menuPredkrmy from "@/assets/menu/home-predkrmy.png";
+import menuHlavniChody from "@/assets/menu/home-hlavni-chody.png";
+import menuDezerty from "@/assets/menu/home-dezerty.png";
+
 /**
  * Metadata sekcí menu (pořadí, název, obrázek). Samotné položky se načítají
  * z databáze (tabulka menu_polozky), tato mapa určuje jen zobrazení sekcí.
@@ -5,21 +9,21 @@
 export type SectionMeta = { id: string; title: string; image?: string };
 
 export const FOOD_SECTIONS: SectionMeta[] = [
-  { id: "predkrmy", title: "Předkrmy", image: "https://www.lapadella.cz/data/P%C5%98EDKRMY.jpeg" },
-  { id: "pizza", title: "Pizza", image: "https://www.lapadella.cz/data/Pizza.jpeg" },
+  { id: "predkrmy", title: "Předkrmy", image: menuPredkrmy },
+  { id: "pizza", title: "Pizza", image: menuHlavniChody },
   {
     id: "testoviny",
     title: "Těstoviny a rizota",
-    image: "https://www.lapadella.cz/data/PASTA%20A%20RIZOTA.jpeg",
+    image: menuHlavniChody,
   },
   {
     id: "masa-ryby",
     title: "Masa a ryby",
-    image: "https://www.lapadella.cz/data/MO%C5%98E%20A%20ZEM%C4%9A.jpeg",
+    image: menuHlavniChody,
   },
-  { id: "salaty", title: "Saláty", image: "https://www.lapadella.cz/data/SAL%C3%81TY.jpeg" },
-  { id: "dezerty", title: "Dezerty", image: "https://www.lapadella.cz/data/DEZERTY.jpeg" },
-  { id: "deti", title: "Děti", image: "https://www.lapadella.cz/data/D%C4%9ATI.jpeg" },
+  { id: "salaty", title: "Saláty", image: menuPredkrmy },
+  { id: "dezerty", title: "Dezerty", image: menuDezerty },
+  { id: "deti", title: "Děti", image: menuHlavniChody },
   { id: "prilohy", title: "Přílohy" },
 ];
 

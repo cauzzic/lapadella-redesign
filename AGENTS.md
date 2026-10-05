@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep deployment-critical menu imagery bundled with the frontend so official-domain rendering never depends on the old site.
