@@ -34,31 +34,11 @@ export const IMG = {
   food4: menuHlavniChody,
   oblique3: menuDezerty,
   oblique4: menuNapoje,
-  contactBg: "https://www.lapadella.cz/assets/images/contact-bg.jpeg",
+  contactBg: ig7,
   menuBanner: menuHlavniChody,
 };
 
-const GALLERY_NEW = [ig1, ig2, ig3, ig4, ig5, ig6, ig7];
-
-export const GALLERY = [
-  ...GALLERY_NEW,
-  ...[
-    "5a5b2c0fb93b79e94816a1a76372b274",
-    "5614ac4b43eb9a57aa12ecec44aaeb03",
-    "5aed25caa764aedef9e2692cb610531f",
-    "b622fec4813bdd6ea41a378748bd3758",
-    "ec5463d80dfd8481edd75516c7d46baa",
-    "7974dbf2192b592f9d9830c88ad3de3c",
-    "7f66aa77d5b7a2420fdb98ad4ab663e2",
-    "92fd794aa281ea20f71e7cf1ab3c7888",
-    "b7a4202947f1575cdc2dd9fd3df66a54",
-    "e714dc42c46567707cad697e3e01c130",
-    "d1df15ee4a1c4371ce947326242be293",
-    "73370d132e1d01f18dfb340d0689260f",
-    "a543d6f0713dd9a852f0c26f69d1ab7b",
-    "6e835a02649338ab5144e5680ca34938",
-  ].map((h) => `https://www.lapadella.cz/data/${h}.jpeg`),
-];
+export const GALLERY = [ig7, ig1, ig2, ig3, ig4, ig5, ig6];
 
 export const CONTACT = {
   phone: "+420 723 232 376",
