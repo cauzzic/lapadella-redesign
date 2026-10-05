@@ -2,7 +2,9 @@ import igPizza from "@/assets/menu/pizza.jpg";
 import igPredkrmy from "@/assets/menu/predkrmy.jpg";
 import igTestoviny from "@/assets/menu/testoviny.jpg";
 import igMasaRyby from "@/assets/menu/masa-ryby.jpg";
-import igSalaty from "@/assets/galerie-ig-5.jpg";
+import igSalaty from "@/assets/menu/salaty.jpg";
+import igDeti from "@/assets/menu/deti.jpg";
+import igPrilohy from "@/assets/menu/prilohy.jpg";
 import menuDezerty from "@/assets/menu/home-dezerty.png";
 
 /**
@@ -26,8 +28,8 @@ export const FOOD_SECTIONS: SectionMeta[] = [
   },
   { id: "salaty", title: "Saláty", image: igSalaty },
   { id: "dezerty", title: "Dezerty", image: menuDezerty },
-  { id: "deti", title: "Děti", image: igPizza },
-  { id: "prilohy", title: "Přílohy", image: igPredkrmy },
+  { id: "deti", title: "Děti", image: igDeti },
+  { id: "prilohy", title: "Přílohy", image: igPrilohy },
 ];
 
 export const DRINK_SECTIONS: SectionMeta[] = [
