@@ -11,13 +11,7 @@ import menuDezerty from "@/assets/menu/home-dezerty.png";
  * Metadata sekcí menu (pořadí, název, obrázek). Samotné položky se načítají
  * z databáze (tabulka menu_polozky), tato mapa určuje jen zobrazení sekcí.
  */
-export type SectionMeta = {
-  id: string;
-  title: string;
-  image?: string;
-  /** "contain" = zobrazit celou fotku bez ořezu (výchozí je ořez object-cover) */
-  imageFit?: "contain";
-};
+export type SectionMeta = { id: string; title: string; image?: string };
 
 export const FOOD_SECTIONS: SectionMeta[] = [
   { id: "predkrmy", title: "Předkrmy", image: igPredkrmy },
@@ -31,7 +25,6 @@ export const FOOD_SECTIONS: SectionMeta[] = [
     id: "masa-ryby",
     title: "Masa a ryby",
     image: igMasaRyby,
-    imageFit: "cover",
   },
   { id: "salaty", title: "Saláty", image: igSalaty },
   { id: "dezerty", title: "Dezerty", image: menuDezerty },

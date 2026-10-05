@@ -25,7 +25,6 @@ export type MenuSection = {
   id: string;
   title: string;
   image?: string;
-  imageFit?: "contain";
   items: Dish[];
   subgroups?: { id: string; title: string }[];
 };

@@ -64,11 +64,7 @@ export function MenuList({ sections }: { sections: MenuSection[] }) {
                     src={section.image}
                     alt={section.title}
                     loading="lazy"
-                    className={`sticky top-28 h-[420px] w-full rounded-sm shadow-[var(--shadow-soft)] ${
-                      section.imageFit === "contain"
-                        ? "bg-secondary object-contain"
-                        : "object-cover"
-                    }`}
+                    className="sticky top-28 h-[420px] w-full rounded-sm object-cover shadow-[var(--shadow-soft)]"
                   />
                 </figure>
               )}

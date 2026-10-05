@@ -66,7 +66,6 @@ export function useMenuSections(meta: SectionMeta[]) {
         id: m.id,
         title: m.title,
         ...(m.image ? { image: m.image } : {}),
-        ...(m.imageFit ? { imageFit: m.imageFit } : {}),
         ...(m.id === "vina" ? { subgroups: WINE_SUBGROUPS } : {}),
         items,
       };
