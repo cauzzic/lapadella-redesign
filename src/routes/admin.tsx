@@ -24,7 +24,8 @@ import {
 import { ALLERGENS } from "@/data/allergens";
 import { MenuPeriodEditor } from "@/components/site/MenuPeriodEditor";
 import { PopupAdmin } from "@/components/site/PopupAdmin";
-import { SETTING_WEEKLY_PERIOD, SETTING_SPECIAL_PERIOD } from "@/hooks/useMenuSetting";
+import { WeeklyMenuAdmin } from "@/components/site/WeeklyMenuAdmin";
+import { SETTING_SPECIAL_PERIOD } from "@/hooks/useMenuSetting";
 import { LayoutDashboard, Loader2, LogOut, Pencil, Plus, Search, Trash2, X } from "lucide-react";
 
 const FOOD_SECTION_IDS = FOOD_SECTIONS.map((s) => s.id);
@@ -73,6 +74,7 @@ type MenuRow = {
   poradi: number;
   podskupina: string | null;
   alergeny: number[] | null;
+  menu_id: string | null;
 };
 
 /** Nabídka podskupin podle sekce (den u týdenního, podkategorie u speciálního menu). */
@@ -95,6 +97,7 @@ type FormState = {
   podskupina: string;
   cast: string;
   alergeny: number[];
+  menu_id: string | null;
 };
 
 const emptyForm: FormState = {
@@ -109,6 +112,7 @@ const emptyForm: FormState = {
   podskupina: "",
   cast: "",
   alergeny: [],
+  menu_id: null,
 };
 
 function AdminPage() {
@@ -405,7 +409,7 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
     setLoading(true);
     const { data, error } = await supabase
       .from("menu_polozky")
-      .select("id, sekce, nazev, popis, cena, obrazek, aktivni, poradi, podskupina, alergeny")
+      .select("id, sekce, nazev, popis, cena, obrazek, aktivni, poradi, podskupina, alergeny, menu_id")
       .order("sekce", { ascending: true })
       .order("poradi", { ascending: true });
     setLoading(false);
@@ -541,6 +545,7 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
         row.sekce === "tydenni" ? parseWeeklySubgroup(row.podskupina).day : (row.podskupina ?? ""),
       cast: row.sekce === "tydenni" ? parseWeeklySubgroup(row.podskupina).course : "",
       alergeny: (row.alergeny ?? []).map(Number),
+      menu_id: row.menu_id ?? null,
     });
   }
 
@@ -572,6 +577,7 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
             ? form.podskupina
             : null,
       alergeny: [...form.alergeny].sort((a, b) => a - b),
+      menu_id: form.sekce.trim() === "tydenni" ? form.menu_id : null,
     };
     const { error } = form.id
       ? await supabase.from("menu_polozky").update(payload).eq("id", form.id)
@@ -675,20 +681,51 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
             <h2 className="text-2xl font-semibold text-foreground">{activeTab.label}</h2>
             <p className="text-sm text-muted-foreground">{activeTab.hint}</p>
           </div>
-          {isItemsTab && (
+          {isItemsTab && tab !== "tydenni" && (
             <Button onClick={openNew}>
               <Plus className="mr-2 h-4 w-4" /> Přidat položku
             </Button>
           )}
         </div>
 
-        {tab === "tydenni" && (
-          <MenuPeriodEditor
-            settingKey={SETTING_WEEKLY_PERIOD}
-            title="Období týdenního menu"
-            placeholder="PONDĚLÍ 31.08.2026 - PÁTEK 04.09.2026"
-          />
-        )}
+        {tab === "tydenni" &&
+          (loading ? (
+            <CenteredSpinner />
+          ) : (
+            <WeeklyMenuAdmin
+              rows={rows.filter((r) => r.sekce === "tydenni")}
+              reloadItems={load}
+              onEdit={(r) => {
+                const row = rows.find((x) => x.id === r.id);
+                if (row) editRow(row);
+              }}
+              onToggle={(r) => {
+                const row = rows.find((x) => x.id === r.id);
+                if (row) void toggleActive(row);
+              }}
+              onRemove={(r) => {
+                const row = rows.find((x) => x.id === r.id);
+                if (row) void remove(row);
+              }}
+              onNew={(day, course, menuId) => {
+                const sameDay = rows.filter(
+                  (x) =>
+                    x.sekce === "tydenni" &&
+                    x.menu_id === menuId &&
+                    parseWeeklySubgroup(x.podskupina).day === day,
+                );
+                const nextOrder = sameDay.reduce((m, x) => Math.max(m, x.poradi ?? 0), -1) + 1;
+                setForm({
+                  ...emptyForm,
+                  sekce: "tydenni",
+                  podskupina: day,
+                  cast: course,
+                  menu_id: menuId,
+                  poradi: String(nextOrder),
+                });
+              }}
+            />
+          ))}
         {tab === "specialni" && (
           <MenuPeriodEditor
             settingKey={SETTING_SPECIAL_PERIOD}
@@ -700,7 +737,7 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
         {tab === "popup" && <PopupAdmin />}
         {tab === "users" && isOwner && <UsersAdmin />}
 
-        {isItemsTab && (
+        {isItemsTab && tab !== "tydenni" && (
           <>
             <div className="flex flex-wrap items-center gap-3">
               <div className="relative max-w-sm flex-1">
