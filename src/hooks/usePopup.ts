@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { pragueToday } from "@/lib/pragueDate";
 
 export const POPUP_BUCKET = "popup";
 
@@ -37,9 +38,7 @@ export async function resolvePopupImage(obrazek: string | null): Promise<string 
 export function isPopupVisible(p: PopupSettings, now = new Date()) {
   if (!p.aktivni) return false;
   if (!p.nadpis.trim() && !p.text.trim() && !p.obrazek) return false;
-  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(
-    now.getDate(),
-  ).padStart(2, "0")}`;
+  const today = pragueToday(now);
   if (p.datum_od && today < p.datum_od) return false;
   if (p.datum_do && today > p.datum_do) return false;
   return true;
