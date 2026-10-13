@@ -779,7 +779,7 @@ function MenuAdmin({ email, isOwner }: { email: string; isOwner: boolean }) {
                         <ul className="divide-y divide-border">
                           {g.items.map((row) => {
                             const course =
-                              tab === "tydenni"
+                              row.sekce === "tydenni"
                                 ? WEEKLY_COURSES.find(
                                     (c) => c.id === parseWeeklySubgroup(row.podskupina).course,
                                   )?.title
