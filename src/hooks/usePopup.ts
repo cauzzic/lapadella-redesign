@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { pragueToday } from "@/lib/pragueDate";
 
 export const POPUP_BUCKET = "popup";
 
@@ -37,9 +38,7 @@ export async function resolvePopupImage(obrazek: string | null): Promise<string 
 export function isPopupVisible(p: PopupSettings, now = new Date()) {
   if (!p.aktivni) return false;
   if (!p.nadpis.trim() && !p.text.trim() && !p.obrazek) return false;
-  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(
-    now.getDate(),
-  ).padStart(2, "0")}`;
+  const today = pragueToday(now);
   if (p.datum_od && today < p.datum_od) return false;
   if (p.datum_do && today > p.datum_do) return false;
   return true;
@@ -51,12 +50,21 @@ export function usePopupSettings() {
   const [loading, setLoading] = useState(true);
 
   const reload = useCallback(async () => {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("popup_nastaveni")
       .select("aktivni, datum_od, datum_do, nadpis, text, obrazek, tlacitko_text, tlacitko_odkaz")
       .eq("id", 1)
       .maybeSingle();
-    if (data) setSettings({ ...emptyPopup, ...data });
+    if (error) console.error("[popup] Načtení nastavení selhalo:", error);
+    if (data)
+      setSettings({
+        ...emptyPopup,
+        ...data,
+        nadpis: data.nadpis ?? "",
+        text: data.text ?? "",
+        tlacitko_text: data.tlacitko_text ?? "",
+        tlacitko_odkaz: data.tlacitko_odkaz ?? "",
+      });
     setLoading(false);
   }, []);
 
