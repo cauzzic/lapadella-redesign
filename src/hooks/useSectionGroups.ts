@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { useCurrentWeeklyMenu } from "@/hooks/useCurrentWeeklyMenu";
 
 export type GroupedItem = {
   name: string;
@@ -115,8 +116,8 @@ export type WeeklyDayGroup = {
  * zápis `podskupina = "po"` (první položka dne = polévka).
  */
 export function useWeeklyDayGroups(days: { id: string; title: string }[]) {
-  const query = useRows("tydenni");
-  const rows = query.data ?? [];
+  const query = useCurrentWeeklyMenu();
+  const rows: Row[] = query.data?.rows ?? [];
 
   const groups: WeeklyDayGroup[] = days
     .map((def, i) => {
@@ -157,5 +158,11 @@ export function useWeeklyDayGroups(days: { id: string; title: string }[]) {
     })
     .filter((g) => g.soups.length > 0 || g.mains.length > 0);
 
-  return { groups, isLoading: query.isLoading, error: query.error };
+  return {
+    groups,
+    menu: query.data?.menu ?? null,
+    mode: query.data?.mode ?? null,
+    isLoading: query.isLoading,
+    error: query.error,
+  };
 }

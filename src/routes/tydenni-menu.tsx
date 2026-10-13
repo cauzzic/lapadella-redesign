@@ -4,7 +4,8 @@ import { PageHero } from "@/components/site/PageHero";
 import { CONTACT, HOURS, IMG } from "@/data/menu";
 import { AllergenInfo } from "@/components/site/AllergenInfo";
 import { AllergenIcons } from "@/components/site/AllergenIcons";
-import { WEEKLY_MENU, WEEKLY_NOTE } from "@/data/weekly";
+import { WEEKLY_NOTE } from "@/data/weekly";
+import { formatCzDate } from "@/lib/pragueDate";
 import { useWeeklyDayGroups } from "@/hooks/useSectionGroups";
 import { WEEKLY_DAYS } from "@/data/menuSections";
 import { useMenuSetting, SETTING_WEEKLY_PERIOD } from "@/hooks/useMenuSetting";
@@ -34,16 +35,16 @@ export const Route = createFileRoute("/tydenni-menu")({
 });
 
 function WeeklyMenuPage() {
-  const { value: period } = useMenuSetting(SETTING_WEEKLY_PERIOD);
-  const { groups } = useWeeklyDayGroups(WEEKLY_DAYS);
-  const days =
-    groups.length > 0
-      ? groups.map((g) => ({
-          day: g.day,
-          soups: g.soups,
-          mains: g.mains,
-        }))
-      : WEEKLY_MENU.map((d) => ({ day: d.day, soups: [d.soup], mains: d.mains }));
+  const { value: legacyPeriod } = useMenuSetting(SETTING_WEEKLY_PERIOD);
+  const { groups, menu, mode, isLoading } = useWeeklyDayGroups(WEEKLY_DAYS);
+  const days = groups.map((g) => ({ day: g.day, soups: g.soups, mains: g.mains }));
+  const period = menu
+    ? menu.poznamka.trim() ||
+      `Platí od ${formatCzDate(menu.plati_od)} do ${formatCzDate(menu.plati_do)}`
+    : mode === "legacy"
+      ? legacyPeriod
+      : "";
+  const unavailable = !isLoading && days.length === 0;
 
   return (
     <>
@@ -59,6 +60,16 @@ function WeeklyMenuPage() {
           <p className="mb-10 text-center text-sm font-semibold tracking-[0.2em] uppercase text-primary">
             {period}
           </p>
+        )}
+        {unavailable && (
+          <div className="mb-6 rounded-sm border border-border bg-card p-8 text-center shadow-[var(--shadow-card)] md:p-12">
+            <p className="font-display text-2xl text-foreground md:text-3xl">
+              Týdenní menu momentálně není dostupné.
+            </p>
+            <p className="mt-3 text-sm text-muted-foreground">
+              Nové menu pro vás právě připravujeme.
+            </p>
+          </div>
         )}
         <div className="grid gap-6 lg:grid-cols-2">
 
