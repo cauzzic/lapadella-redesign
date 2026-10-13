@@ -115,8 +115,8 @@ export type WeeklyDayGroup = {
  * zápis `podskupina = "po"` (první položka dne = polévka).
  */
 export function useWeeklyDayGroups(days: { id: string; title: string }[]) {
-  const query = useRows("tydenni");
-  const rows = query.data ?? [];
+  const query = useCurrentWeeklyMenu();
+  const rows: Row[] = query.data?.rows ?? [];
 
   const groups: WeeklyDayGroup[] = days
     .map((def, i) => {
