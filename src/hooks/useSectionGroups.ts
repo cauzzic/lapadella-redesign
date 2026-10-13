@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { useCurrentWeeklyMenu } from "@/hooks/useCurrentWeeklyMenu";
 
 export type GroupedItem = {
   name: string;
