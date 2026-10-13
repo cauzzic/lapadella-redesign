@@ -158,5 +158,11 @@ export function useWeeklyDayGroups(days: { id: string; title: string }[]) {
     })
     .filter((g) => g.soups.length > 0 || g.mains.length > 0);
 
-  return { groups, isLoading: query.isLoading, error: query.error };
+  return {
+    groups,
+    menu: query.data?.menu ?? null,
+    mode: query.data?.mode ?? null,
+    isLoading: query.isLoading,
+    error: query.error,
+  };
 }
