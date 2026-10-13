@@ -51,12 +51,21 @@ export function usePopupSettings() {
   const [loading, setLoading] = useState(true);
 
   const reload = useCallback(async () => {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("popup_nastaveni")
       .select("aktivni, datum_od, datum_do, nadpis, text, obrazek, tlacitko_text, tlacitko_odkaz")
       .eq("id", 1)
       .maybeSingle();
-    if (data) setSettings({ ...emptyPopup, ...data });
+    if (error) console.error("[popup] Načtení nastavení selhalo:", error);
+    if (data)
+      setSettings({
+        ...emptyPopup,
+        ...data,
+        nadpis: data.nadpis ?? "",
+        text: data.text ?? "",
+        tlacitko_text: data.tlacitko_text ?? "",
+        tlacitko_odkaz: data.tlacitko_odkaz ?? "",
+      });
     setLoading(false);
   }, []);
 
