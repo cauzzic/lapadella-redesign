@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1791914175581,
+      "tag": "0000_tydenni_menu",
+      "breakpoints": true
+    }
+  ]
+}

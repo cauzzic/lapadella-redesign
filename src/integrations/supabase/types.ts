@@ -42,6 +42,7 @@ export type Database = {
           cena: number | null
           created_at: string
           id: string
+          menu_id: string | null
           nazev: string
           obrazek: string | null
           podskupina: string | null
@@ -56,6 +57,7 @@ export type Database = {
           cena?: number | null
           created_at?: string
           id?: string
+          menu_id?: string | null
           nazev: string
           obrazek?: string | null
           podskupina?: string | null
@@ -70,6 +72,7 @@ export type Database = {
           cena?: number | null
           created_at?: string
           id?: string
+          menu_id?: string | null
           nazev?: string
           obrazek?: string | null
           podskupina?: string | null
@@ -78,7 +81,15 @@ export type Database = {
           sekce?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "menu_polozky_menu_id_fkey"
+            columns: ["menu_id"]
+            isOneToOne: false
+            referencedRelation: "tydenni_menu"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       popup_nastaveni: {
         Row: {
@@ -122,6 +133,39 @@ export type Database = {
         }
         Relationships: []
       }
+      tydenni_menu: {
+        Row: {
+          created_at: string
+          id: string
+          nazev: string
+          plati_do: string | null
+          plati_od: string | null
+          poznamka: string
+          updated_at: string
+          zverejneno: boolean
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          nazev?: string
+          plati_do?: string | null
+          plati_od?: string | null
+          poznamka?: string
+          updated_at?: string
+          zverejneno?: boolean
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          nazev?: string
+          plati_do?: string | null
+          plati_od?: string | null
+          poznamka?: string
+          updated_at?: string
+          zverejneno?: boolean
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -148,6 +192,11 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      copy_weekly_day: {
+        Args: { _from: string; _menu_id: string; _to: string[] }
+        Returns: number
+      }
+      duplicate_weekly_menu: { Args: { _menu_id: string }; Returns: string }
       ensure_user_role: { Args: never; Returns: undefined }
       has_role: {
         Args: {
